@@ -1,0 +1,33 @@
+{{- /* Paired step shortcode — renders a front-matter step row in context.
+     Schema: STEP-SCHEMA.md (cam-lectures sessions/guidebook-2026-11-05/).
+     Laws enforced at build: id must exist in front matter; context and
+     verify are required. Unknown id = build ERROR, never a silent skip. */ -}}
+{{- $id := .Get 0 -}}
+{{- $row := dict -}}
+{{- range .Page.Params.steps -}}{{- if eq .id $id -}}{{- $row = . -}}{{- end -}}{{- end -}}
+{{- if not $row.id -}}{{- errorf "step %q: no such row in front-matter steps of %s" $id .Page.File.Path -}}{{- end -}}
+{{- if not $row.context -}}{{- errorf "step %q (%s): 'context' is required — the why beside the how" $id .Page.File.Path -}}{{- end -}}
+{{- if not $row.verify -}}{{- errorf "step %q (%s): 'verify' is required — a step without one is a wish" $id .Page.File.Path -}}{{- end -}}
+<div class="gb-step{{ if $row.destructive }} gb-destructive{{ end }}" id="step-{{ $row.id }}">
+  <div class="gb-step-head">
+    <input type="checkbox" class="gb-tick" data-step="{{ $row.id }}" aria-label="done: {{ $row.title }}">
+    <strong>{{ $row.title }}</strong>
+    <a class="gb-all-tasks" href="{{ "tasks/" | relURL }}#task-{{ $row.id }}" title="see all tasks">☰</a>
+  </div>
+  {{- with $row.requires }}
+  <p class="gb-requires">Builds on: {{ range $i, $r := . }}{{ if $i }}, {{ end }}<a href="#step-{{ $r }}" data-req="{{ $r }}">{{ $r }}</a>{{ end }}</p>
+  {{- end }}
+  <blockquote class="gb-context">{{ $row.context | markdownify }}</blockquote>
+  {{- if $row.destructive }}
+  <p class="gb-warn"><strong>This step changes or removes things.</strong> Read it fully before running anything.</p>
+  {{- end }}
+  <div class="gb-how">{{ .Inner | markdownify }}</div>
+  {{- with $row.media }}{{ with .screenshot }}
+  <img class="gb-shot" src="{{ . | relURL }}" alt="after completing: {{ $row.title }}" loading="lazy">
+  {{- end }}{{ end }}
+  <p class="gb-verify">✓ <em>You know it worked when:</em> {{ $row.verify | markdownify }}</p>
+  {{- with $row.platforms }}{{ if eq .windows "tentative" }}
+  <p class="gb-platform">Windows notes are tentative — if you walk this on Windows, <a href="{{ site.Params.BookRepo }}/issues/new?title={{ printf "[%s] Windows note" $row.id | urlquery }}">tell us what you found</a>.</p>
+  {{- end }}{{ end }}
+  <p class="gb-feedback"><a href="{{ site.Params.BookRepo }}/issues/new?title={{ printf "[%s] This doesn't match what I see" $row.id | urlquery }}&body={{ printf "Step: %s#step-%s%%0A%%0AWhat I see instead:%%0A" .Page.Permalink $row.id }}">This doesn't match what I see →</a></p>
+</div>

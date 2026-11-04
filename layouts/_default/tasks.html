@@ -1,0 +1,23 @@
+{{ define "main" }}
+{{- /* The task lens: references steps, never contains them — every row
+     here is rendered from the same front-matter source as the chapters
+     (lens law, guidebook seed thread). Dangling is impossible: rows ARE
+     the source. */ -}}
+<article class="markdown gb-tasks">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  {{- range where site.RegularPages "Params.steps" "!=" nil }}
+  {{- $page := . }}
+  <h2>{{ .Title }}</h2>
+  <ul class="gb-task-list">
+    {{- range .Params.steps }}
+    <li id="task-{{ .id }}">
+      <input type="checkbox" class="gb-tick" data-step="{{ .id }}" aria-label="done: {{ .title }}">
+      <a href="{{ $page.RelPermalink }}#step-{{ .id }}">{{ .title }}</a>
+      {{- with .requires }} <span class="gb-req-note" data-reqs="{{ delimit . "," }}">(builds on {{ delimit . ", " }})</span>{{ end }}
+    </li>
+    {{- end }}
+  </ul>
+  {{- end }}
+</article>
+{{ end }}

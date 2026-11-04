@@ -1,0 +1,4 @@
+{{- /* Inline substitution chip: {{< your github-username >}} renders the
+     reader's saved config value, or a fill-me chip. Identifiers only,
+     never secrets (STEP-SCHEMA.md §4). */ -}}
+<span class="gb-cfg" data-cfg="{{ .Get 0 }}">&lt;your {{ .Get 0 }}&gt;</span>

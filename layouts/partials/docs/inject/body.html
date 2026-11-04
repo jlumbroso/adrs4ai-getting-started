@@ -1,0 +1,61 @@
+<style>
+.gb-step{border:1px solid #ddd;border-radius:10px;padding:14px 18px;margin:20px 0;scroll-margin-top:70px}
+.gb-step-head{display:flex;align-items:center;gap:10px;font-size:1.05em}
+.gb-tick{width:18px;height:18px;accent-color:#1E4D2B;flex:0 0 auto}
+.gb-all-tasks{margin-left:auto;text-decoration:none;opacity:.5}
+.gb-context{border-left:4px solid #1E4D2B;background:#edf3ee;padding:8px 14px;margin:10px 0;border-radius:0 6px 6px 0}
+.gb-verify{background:#f6f3ea;padding:8px 12px;border-radius:6px}
+.gb-destructive{border-color:#c0392b}
+.gb-warn{color:#c0392b}
+.gb-feedback{font-size:.85em;opacity:.8}
+.gb-platform{font-size:.85em}
+.gb-requires{font-size:.85em;opacity:.8}
+.gb-cfg{background:#fdeeea;border:1px dashed #F0654E;border-radius:4px;padding:0 6px;cursor:pointer}
+.gb-cfg.gb-set{background:#edf3ee;border-style:solid;border-color:#1E4D2B}
+.gb-done{opacity:.6}
+</style>
+<script>
+/* Guidebook state — walkthrough pattern (STEP-SCHEMA.md §4).
+   One key; ticks + config; identifiers only, NEVER secrets.
+   Storage may be absent (private window, lab machine): every access is
+   wrapped, and the book renders fully without it. */
+(function () {
+  "use strict";
+  var KEY = "cam-guidebook-v1";
+  function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+  function save(s) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} }
+  var st = load(); st.ticks = st.ticks || {}; st.config = st.config || {};
+  document.querySelectorAll(".gb-tick").forEach(function (cb) {
+    var id = cb.getAttribute("data-step");
+    cb.checked = !!st.ticks[id];
+    cb.closest(".gb-step, li") && cb.closest(".gb-step, li").classList.toggle("gb-done", cb.checked);
+    cb.addEventListener("change", function () {
+      st.ticks[id] = cb.checked; save(st);
+      document.querySelectorAll('.gb-tick[data-step="' + id + '"]').forEach(function (o) {
+        o.checked = cb.checked;
+        o.closest(".gb-step, li") && o.closest(".gb-step, li").classList.toggle("gb-done", cb.checked);
+      });
+    });
+  });
+  document.querySelectorAll(".gb-cfg").forEach(function (el) {
+    var k = el.getAttribute("data-cfg");
+    function paint() {
+      if (st.config[k]) { el.textContent = st.config[k]; el.classList.add("gb-set"); }
+      else { el.textContent = "<your " + k + ">"; el.classList.remove("gb-set"); }
+    }
+    paint();
+    el.title = "Click to set your " + k + " (saved only in this browser; never a password or token)";
+    el.addEventListener("click", function () {
+      var v = window.prompt("Your " + k + " (saved only in this browser — identifiers only, never a password or token):", st.config[k] || "");
+      if (v !== null) {
+        st.config[k] = v.trim(); save(st);
+        document.querySelectorAll('.gb-cfg[data-cfg="' + k + '"]').forEach(function () { paint.call(null); });
+        document.querySelectorAll('.gb-cfg[data-cfg="' + k + '"]').forEach(function (o) {
+          if (st.config[k]) { o.textContent = st.config[k]; o.classList.add("gb-set"); }
+          else { o.textContent = "<your " + k + ">"; o.classList.remove("gb-set"); }
+        });
+      }
+    });
+  });
+})();
+</script>
