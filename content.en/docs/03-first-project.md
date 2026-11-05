@@ -171,7 +171,11 @@ guide uses below, but it's yours:
 
 {{< var-input project-name "Your repository name" "wordle-with-records" >}}
 
-→ **Public** → Create. (Public is the free default: Pages on a free
+→ **Public** → Create. (The template is built for projects with
+several collaborators; today you use three things in it —
+`CLAUDE.md`, the house rules your collaborator reads; `docs/adr/`,
+where decisions live; `justfile`, named shortcuts. Everything else
+can wait.) (Public is the free default: Pages on a free
 account needs a public repository, and your code *and records* will
 be visible — the name you give the template is the name the world
 sees, and a handle is fine. Students: GitHub Education's free Pro
