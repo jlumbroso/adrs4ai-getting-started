@@ -166,8 +166,10 @@ curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 Then open a new terminal and run `claude` once in any folder: it walks
-you through logging in with your Anthropic account (your course account
-works; the free tier is enough for this guide).
+you through logging in with your Anthropic account — the same one
+you've been using in class all semester, which is verified to work.
+(Reading this from outside the course? Claude Code needs a paid Claude
+plan or API access — check current pricing before this step.)
 
 <!-- screenshot: claude-first-run -->
 {{< /step >}}

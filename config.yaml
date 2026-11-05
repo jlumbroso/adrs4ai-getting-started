@@ -25,14 +25,6 @@ languages:
     languageName: English
     contentDir: content.en
     weight: 1
-  bn:
-    languageName: Bengali
-    contentDir: content.bn
-    weight: 2
-  zh:
-    languageName: Chinese
-    contentDir: content.zh
-    weight: 3
 
 staticDir:
   - static
