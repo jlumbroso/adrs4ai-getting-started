@@ -7,7 +7,7 @@ in the guide is re-verified.*
 
 | Claim in the guide | Verified against | Date |
 |---|---|---|
-| Template path (`Use this template`, `docs/adr/templates/` present) | `ADRs4AI/human-ai-collaboration-template-A` @ `081555a` (v3.12.3, public, `is_template: true`) | 2026-11-04 |
+| Template path (`Use this template`, `docs/adr/templates/` present) | `ADRs4AI/human-ai-collaboration-template-A` @ `081555a` (v3.12.3, public, `is_template: true`); **v3.12.4 released 2026-11-05** (⟦HUMAN-NAME⟧ sigil, registry_lib restores refresh-terminals, MCP consent default false) — new clones get it; MCP-prompt text written against it | 2026-11-05 |
 | asdf commands (`set -u`, shims PATH line) | asdf 0.18.0 installed / 0.20.2 brew-current; upstream getting-started | 2026-11-05 |
 | Claude Code install methods (native installer, brew cask, npm/Node 22+) | code.claude.com/docs/en/setup, fetched live | 2026-11-04 |
 | Capstone memory isolation (`CLAUDE_CODE_DISABLE_AUTO_MEMORY=1`) | code.claude.com/docs/en/memory (second-round review citation) | 2026-11-05 |

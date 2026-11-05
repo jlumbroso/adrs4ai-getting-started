@@ -205,19 +205,19 @@ happen.
 {{< step recruit >}}
 In the VS Code terminal, run `claude`. First launch in a new folder
 asks whether you trust the folder — yes, it's your own repository.
-You may then see that an MCP server called `adrs4ai` **failed to
-start**: expected, not broken — it wants Node, which arrives in
-*Ship it*; after that install, the next launch starts it. (Four
-different things, for the record: the VS Code *extension* displays
-records; the Claude *plugin/skill* teaches authoring; the MCP
-*server* provides tools; *Node* runs JavaScript tooling. Only the
-last two wait for Ship it.)
+Then it asks whether to enable the project's `adrs4ai` MCP server —
+your call, and either answer is fine: the server wants Node, which
+arrives in *Ship it*, so enabling it now just leaves it pending until
+then. Nothing in this hour uses it. (Four different things, for the
+record: the VS Code *extension* displays records; the Claude
+*plugin/skill* teaches authoring; the MCP *server* provides tools;
+*Node* runs JavaScript tooling. Only the last two wait for Ship it.)
 
 Then paste this — **the mission and the project together, one
 message** (edit the project half freely; it's yours):
 
 ```text
-Hello — I have a mission for you: my first deliberatively-built project. Read CLAUDE.md and tell me if you accept — any pushback welcome. If you accept: configure the template (the ⟦⟧ placeholders and whatever else it asks), set adrManager.humanName in .vscode/settings.json to MY name (the template ships its author's), introduce yourself, and then we start on this — using the template's adr-authoring skill when you write the cards:
+Hello — I have a mission for you: my first deliberatively-built project. Read CLAUDE.md and tell me if you accept — any pushback welcome. If you accept: configure the template (the ⟦⟧ placeholders and whatever else it asks — one of them is MY name for the records), introduce yourself, and then we start on this — using the template's adr-authoring skill when you write the cards:
 
 The project is a Wordle variant — guess the word, colored feedback per letter — with a twist: the answers are computer science words (ARRAY, STACK, QUEUE, CACHE, TOKEN…). I want it hosted free on GitHub Pages, built with Vue using scoped CSS so styles stay component-local. Before you write any code: what are the 2–3 decisions we should settle first? Put them to me as proper QST cards in the record — with your recommendation on each.
 ```
