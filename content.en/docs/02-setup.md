@@ -20,8 +20,7 @@ steps:
       code, in a session you steer from the terminal. We install them
       first on purpose: they need nothing your Mac doesn't already ship —
       and **everything below this line, they can now help you through**,
-      including any step of this guide that goes wrong. Wedging with no
-      one to ask is the old world; you just left it.
+      including any step of this guide that goes wrong.
     verify: "`claude --version` answers, and `claude` opens a session that responds"
     requires: [setup-terminal]
     platforms: { macos: full, windows: tentative }
@@ -112,18 +111,15 @@ with the step ID). Budget 30–45 minutes, mostly waiting on installers.
 This chapter opens by installing the helper — so every later step has
 someone to ask.*
 
-Each tool below comes with its *why* — not as filler, but because
-"install these five things" with no reasons is exactly the context-free
-instruction style this whole methodology exists to replace.
+Each tool comes with its *why* — "install these five things" with no
+reasons is the style this methodology replaces.
 
 {{< step setup-terminal >}}
 A terminal is a conversation with your computer in text: you type one
-line in its language, press Enter, and it answers. It's the oldest
-interface computers have — and still the densest: things that take
-seven clicks and two menus are one line here. More to the point for
-this guide: it's the interface your model collaborators are most
-fluent in. When they work, every action they take is printed as a line
-of text — in the same language you're about to start learning.
+line, press Enter, it answers. Things that take seven clicks are one
+line here — and it's the interface your model collaborators are most
+fluent in: when they work, every action is printed as a line of text,
+in the same language you're about to start learning.
 
 Open it: ⌘-space, type "Terminal", Enter. A window appears with a line
 of text ending in `%` — the *prompt*. That's the computer, waiting.
@@ -203,12 +199,10 @@ is verified to work. (Reading this from outside the course? Claude
 Code needs a paid Claude plan or API access — the free plan doesn't
 include it; check current pricing before this step.)
 
-One honest note: this is the single step of the guide where nobody can
-help you yet — you can't be rescued *by* the thing you're installing.
-That's exactly why it's the carefullest page here, and why the one
-recommended path is the one with the fewest moving parts. If it does
-fail: the error message is the clue, the "this doesn't match" link
-below takes ten seconds, and Anthropic's own
+This is the one step where nobody can help you yet — you can't be
+rescued *by* the thing you're installing. If it fails: the error
+message is the clue, the "this doesn't match" link below takes ten
+seconds, and Anthropic's
 [troubleshooting page](https://code.claude.com/docs/en/troubleshoot-install)
 matches errors to fixes.
 
@@ -222,25 +216,20 @@ The same collaborator is reachable from four surfaces: the **terminal**
 graphical shell), a **VS Code extension** (a panel inside the editor
 you'll install later this chapter), and **Claude Code on the web**
 (sessions on cloud machines, from a browser). None of them is wrong.
-This guide teaches the terminal, for three reasons that are really one:
+This guide teaches the terminal, for three reasons:
 
-1. **Transparency is the medium, not a feature.** In the terminal,
-   everything they do is a printed line — there's no "view logs"
-   button to find, because the log *is* the conversation you're both
-   having. You consent to actions as they happen, in plain sight.
-2. **What you watch, you inherit.** Every command they run is a
-   command you could run yourself; a few weeks of watching is an
-   apprenticeship by proximity. The friendlier surfaces wrap — which
-   means hide — exactly the part you're here to learn.
+1. **Transparency.** Everything they do is a printed line — the log
+   *is* the conversation. You consent to actions in plain sight.
+2. **What you watch, you inherit.** Every command they run is one you
+   could run yourself; the friendlier surfaces wrap — which means
+   hide — exactly the part you're here to learn.
 3. **The collaborator lives in your project.** A session starts inside
-   a folder, and that folder — its files, its decision records — is
-   the memory you share. Chapter 3's whole method is *the record lives
-   in the repository*; the terminal is the surface where that's
-   literally visible, not a metaphor behind a pane.
+   a folder, and that folder — files, decision records — is the memory
+   you share. The terminal is where that's visible, not a metaphor
+   behind a pane.
 
-And honestly: the other surfaces are easier to learn *after* the
-terminal than before it. Learn the unwrapped thing once, and every
-wrapper becomes obvious.
+The other surfaces are easier to learn *after* the terminal than
+before it.
 
 ## Your guide, on call — the rule for the rest of this chapter
 
@@ -254,18 +243,15 @@ Something like:
 I'm on step setup-homebrew of a setup guide. I ran the install command and got this: [paste the error]. Diagnose it, and tell me what to type — I want to type it myself.
 ```
 
-That last clause is the rule, and it's the deal for the rest of this
-chapter: **they diagnose, you type.** The tools below are yours —
-worth installing by your own hand once, because you'll maintain them
-for years. (It's also what keeps every walker of this guide on one
-shared path: ten people who each let a model improvise a setup end up
-with ten different machines, and then no step's verify line means the
-same thing twice.)
+That last clause is the rule for the rest of this chapter: **they
+diagnose, you type.** The tools below are yours — worth installing by
+your own hand once, because you'll maintain them for years. It's also
+what keeps every walker on one shared path: ten improvised setups
+would make the verify lines meaningless.
 
-One more thing, so Chapter 3 lands right: what you installed is a
-helper you can ask. You haven't *recruited* anyone yet — reading your
-project's mission, consenting to it, taking a name. That's Chapter 3,
-and it's a different, better thing.
+One distinction for later: what you installed is a helper you can ask.
+*Recruiting* a collaborator — mission, consent, a name — is Chapter
+3's different, better thing.
 
 {{< step setup-homebrew >}}
 Paste into the terminal:
