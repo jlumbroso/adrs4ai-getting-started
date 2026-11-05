@@ -15,11 +15,10 @@ remembers *why* anything is the way it is. The code is there; the
 reasoning evaporated with the chat window it happened in.
 
 **Deliberative programming** is vibe coding made sustainable. The fix
-is almost embarrassingly simple: decisions get written down, in the
-repository, as they're made — each one a small record ("we chose A
-over B because…; here's what would change our mind") that both you and
-every future model session can find, check, and build on. The records
-live in git like everything else. No database, no service, no app:
+is simple: decisions get written down, in the repository, as they're
+made — each one a small record ("we chose A over B because…; here's
+what would change our mind") that you and every future model session
+can find, check, and build on. No database, no service, no app:
 files, found by `grep`, versioned by commits.
 
 Around that simple core there's now a toolkit — skills and plugins for

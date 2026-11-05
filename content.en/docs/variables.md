@@ -25,9 +25,7 @@ No step of this guide will ever ask you to enter a password, a token,
 or an API key into a page — if something that looks like this guide
 ever does, that's a bug *and* a lesson: [report it](https://github.com/jlumbroso/adrs4ai-getting-started/issues/new?title=%5Bvariables%5D%20a%20page%20asked%20for%20a%20secret).
 
-**Why a guide would bother**: half the friction in setup guides is the
-silent *"replace YOUR-NAME-HERE"* step — it's where typos live and
-where copy-paste confidence dies. Naming the variables, and being
-explicit about where they're stored, is the same move this whole
-methodology makes with decisions: what's implicit rots; what's written
-down can be checked.
+**Why bother**: half the friction in setup guides is the silent
+*"replace YOUR-NAME-HERE"* step — it's where typos live. Named
+variables, storage stated, is the same move this methodology makes
+with decisions: what's implicit rots.

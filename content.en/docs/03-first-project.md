@@ -221,9 +221,8 @@ this exact blurb — yours will differ, and should):
 > becomes a recorded follow-up.
 
 Notice what that is: options you can weigh without leaving the block,
-a committed position, and the fact that would change it. Questions
-like these — usually two or three — are now sitting in your
-`docs/adr/` folder, waiting for you.
+a committed position, and the fact that would change it. Two or three
+like it are now in your `docs/adr/` folder, waiting for you.
 
 <!-- screenshot: adr-qst-rendered -->
 {{< /step >}}
@@ -287,10 +286,9 @@ just refresh-terminals
 {{< /expand >}}
 
 …then ⌘-shift-P → **Terminals: Run**. Every configured session
-launches at once. Tomorrow, when you reopen this project: `code .`,
-one Terminals: Run, and the crew is back — reading the same records
-you and they wrote today, remembering *why* everything is the way it
-is.
+launches at once. Tomorrow: `code .`, one Terminals: Run, and the crew
+is back — reading the records you both wrote today, remembering *why*
+everything is the way it is.
 
 <!-- screenshot: terminals-run -->
 
