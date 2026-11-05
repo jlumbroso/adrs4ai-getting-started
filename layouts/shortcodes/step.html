@@ -15,7 +15,7 @@
     <a class="gb-all-tasks" href="{{ "tasks/" | relURL }}#task-{{ $row.id }}" title="see all tasks">☰</a>
   </div>
   {{- with $row.requires }}
-  <p class="gb-requires">Builds on: {{ range $i, $r := . }}{{ if $i }}, {{ end }}<a href="#step-{{ $r }}" data-req="{{ $r }}">{{ $r }}</a>{{ end }}</p>
+  <p class="gb-requires">Builds on: {{ range $i, $r := . }}{{ if $i }}, {{ end }}{{- $reqTitle := $r }}{{ $reqHref := printf "#step-%s" $r }}{{- range site.RegularPages }}{{ $p := . }}{{ range .Params.steps }}{{ if eq .id $r }}{{ $reqTitle = .title }}{{ $reqHref = printf "%s#step-%s" $p.RelPermalink $r }}{{ end }}{{ end }}{{ end -}}<a href="{{ $reqHref }}" data-req="{{ $r }}">{{ $reqTitle }}</a>{{ end }}</p>
   {{- end }}
   <blockquote class="gb-context">{{ $row.context | markdownify }}</blockquote>
   {{- if $row.destructive }}

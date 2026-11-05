@@ -30,7 +30,7 @@ steps:
     verify: "your browser is on your new repository's page, and the file list shows `docs/`, `CLAUDE.md`, `justfile`"
     requires: [gh-signup]
     media:
-      screenshot: /shots/use-template-button.png
+      screenshot: shots/use-template-button.png
   - id: clone-open
     title: "Clone it, open it"
     minutes: 3

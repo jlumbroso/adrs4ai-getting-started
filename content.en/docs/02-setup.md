@@ -100,7 +100,7 @@ steps:
     verify: "⌘-shift-X → \"Installed\" lists both"
     requires: [setup-vscode]
     media:
-      screenshot: /shots/extension-panel.png
+      screenshot: shots/extension-panel.png
 ---
 
 # Chapter 2 — Setting up your tools

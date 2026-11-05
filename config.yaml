@@ -31,13 +31,7 @@ staticDir:
 
 menu:
   # before: []
-  after:
-    - name: "Github"
-      url: "https://github.com/jlumbroso/hugo-book-template"
-      weight: 10
-    - name: "Hugo Themes"
-      url: "https://themes.gohugo.io/themes/hugo-book/"
-      weight: 20
+  # after: []
 
 params:
   contentDir: "content.en"
