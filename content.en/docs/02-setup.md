@@ -9,7 +9,8 @@ steps:
       Everything in this guide happens in a terminal — and so does the
       collaborator you're about to install, which is the real reason to
       start here: it's the interface models are most fluent in, where
-      everything they do is a line of text you can read.
+      their commands and outputs print as lines you can read and
+      question.
     verify: "a terminal is open, and `echo hello` prints hello back"
     platforms: { macos: full, windows: tentative }
   - id: setup-claude-code
@@ -91,8 +92,8 @@ steps:
       opening issues) *as you*. Which of their commands need your ok is
       set by your project's permission settings — you'll see (and own)
       that file in the template. `just` is a tiny command runner the template relies on —
-      a menu of named recipes per project; you'll run your first one at
-      the end of Chapter 3.
+      a menu of named recipes per project (its first appearance is the
+      optional crew extension at the end of Chapter 3).
     verify: "`gh auth status` shows your username, logged in; `just --version` answers"
     requires: [setup-homebrew]
   - id: setup-extensions
@@ -131,8 +132,8 @@ reasons is the style this methodology replaces.
 A terminal is a conversation with your computer in text: you type one
 line, press Enter, it answers. Things that take seven clicks are one
 line here — and it's the interface your model collaborators are most
-fluent in: when they work, every action is printed as a line of text,
-in the same language you're about to start learning.
+fluent in: when they work, their commands and outputs print as lines
+of text, in the same language you're about to start learning.
 
 Open it: ⌘-space, type "Terminal", Enter. A window appears with a line
 of text ending in `%` — the *prompt*. That's the computer, waiting.

@@ -117,7 +117,7 @@ steps:
       Chapter 1 promised that the *why* survives the conversation that
       produced it. That's a testable claim, and you're about to test it
       — on a session with no memory of anything you did today.
-    verify: "the fresh session points to the file and section for a decision, a rejected alternative, the why, and the reopen condition — or honestly names what's missing instead of inventing it"
+    verify: "the cited passages support the reconstruction — or the model names a gap, in which case the test worked: repair the record and repeat"
     requires: [tweaks]
   - id: terminals
     title: "The crew, one click (optional extension)"
@@ -140,9 +140,10 @@ steps:
 # Chapter 3 — Your first project
 
 *A real project: a Wordle variant, live on GitHub Pages, built with a
-model collaborator — and your first decisions on the record. Budget
-~60 minutes; each step shows its own estimate, and your actual times
-are something we genuinely want to hear about. One path; each step
+model collaborator — and your first decisions on the record. The
+required steps total ~65 minutes of active work (installs, logins,
+and debugging are extra); each step shows its own estimate, and your
+actual times are something we genuinely want to hear about. One path; each step
 says how to verify it worked.*
 
 {{< step gh-signup >}}
@@ -288,33 +289,73 @@ answered everything — read and proceed."* They read your answers
 *from the files*, update the records, and start building — no
 re-explaining. The record carried it.
 
+What the two states look like (demonstration records, real extension):
+
+<figure class="gb-shot-fig">
+<a href="../../shots/answer-in-markdown.png" title="open full-size image">
+<img class="gb-shot" src="../../shots/answer-in-markdown.png" alt="The Markdown record showing the saved answer under ANS, with its rationale and If-wrong condition" loading="lazy">
+</a>
+<figcaption class="gb-shot-cap">Persistence, literally: your answer is ordinary Markdown under <code>**ANS:**</code>, in the file. <a class="gb-shot-full" href="../../shots/answer-in-markdown.png">full size ↗</a></figcaption>
+</figure>
+
+<figure class="gb-shot-fig">
+<a href="../../shots/empty-queue.png" title="open full-size image">
+<img class="gb-shot" src="../../shots/empty-queue.png" alt="ADRs for AI showing All caught up — no open questions across your ADRs" loading="lazy">
+</a>
+<figcaption class="gb-shot-cap">The success state: "All caught up." The files — and the reasoning — still exist; only the queue is empty. <a class="gb-shot-full" href="../../shots/empty-queue.png">full size ↗</a></figcaption>
+</figure>
+
 {{< expand "Optional, after: answer from your phone — the full cycle" >}}
 Decisions don't have to wait for your desk, but crossing devices means
 meeting git's three distinct moves, in order:
 
-1. **Publish what's local**: in the terminal — `git add -A && git
-   commit -m "answers" && git push`. *Saving* a file changed your
-   disk; *committing* recorded it in history; *pushing* put it on
-   GitHub where your phone can see it. Three different things.
-2. On the [GitHub mobile app](https://github.com/mobile): your
-   repository → the ADR file → edit → change or extend one answer →
-   commit from your thumbs.
-3. **Pull before touching anything locally**: `git pull`. Your phone's
-   commit now exists on your machine too. Skipping this is how two
+1. **Pause at a clean checkpoint**: tell your collaborator you're
+   crossing devices; let them finish and commit whatever they're
+   mid-way through. (The house rule in your CLAUDE.md — commit by
+   named path, never `git add -A` — exists exactly for this moment:
+   a blanket add could sweep their half-built work into your
+   answer-commit.)
+2. **Stage only what you mean**: `git status` to see what changed,
+   then `git add docs/adr/<the-file>.md` — the answer file by name —
+   and `git commit -m "answer"`, then `git push`. (*Saving* changed
+   your disk; *committing* recorded it; *pushing* made it visible
+   beyond your machine. If git says "nothing to commit," that's
+   normal — your collaborator already committed the records.)
+3. On the [GitHub mobile app](https://github.com/mobile): your
+   repository → the ADR file → confirm it shows your pushed revision
+   → edit → extend one answer → commit from your thumbs.
+4. **Pull before either of you edits again**: `git pull`. Your
+   phone's commit now exists locally too. Skipping this is how two
    versions of the truth get born.
 
-(We tested this on iOS; Android should match — tell us.)
+(Tested on iOS, 2026-11-05; Android should match — tell us.)
 {{< /expand >}}
 
 {{< /step >}}
 
 {{< step ship-pages >}}
+One runtime check first: if your P7 decision chose a **local Vite
+build** (the common path), that's JavaScript tooling, which needs
+Node — not installed so far, on purpose. Just in time, then:
+
+```bash
+brew install node
+node --version && npm --version
+```
+
+(Both answer → ready. Your collaborator can instead design an
+Actions-only build that never runs Node on your machine — a fine
+choice; make it deliberately, not by accident.)
+
 Your collaborator builds the Wordle and sets up GitHub Pages
 deployment (they know how; the decisions you made in P7 govern the
 details — ask them to walk you through enabling Pages if a browser
-step needs your click). When they give you a link at
-`{{< var github-username >}}.github.io`, open it. Play a round. You
-built that — the two of you.
+step needs your click). The address has two parts — account AND
+repository: check
+`https://{{< var github-username >}}.github.io/{{< var project-name >}}/`,
+and have your collaborator confirm Vite's `base` is set to the
+repository path (a blank page with a working build log usually means
+it isn't). Open it. Play a round. You built that — the two of you.
 
 <!-- screenshot: pages-live -->
 {{< /step >}}
@@ -324,7 +365,7 @@ Pick any tweak you actually want — hard mode, a streak counter, dark
 theme, more words, a hint system. Ask for it the same way: *"I want X
 — if there's a real fork in how, QST it; if not, just build."* Small
 tweaks won't need a card; one of yours probably will. Answer it
-whichever of the four ways you liked best.
+whichever answering surface you liked best.
 {{< /step >}}
 
 {{< step cold-resume >}}
@@ -332,15 +373,26 @@ Your collaborator knows why everything is the way it is — but they
 were *there*. The records only matter if someone who wasn't can
 recover the reasoning. Test it:
 
-Open a **new terminal** in the project and start a **fresh** session
-(`claude` — a new session has no memory of today). Paste:
+Open a **new terminal** in the project and start a session with
+auto-memory off for this one launch (a fresh conversation isn't
+necessarily fresh *evidence* — Claude Code's memory persists across
+sessions by default, and this test is about the records, not the
+memory):
 
-```text
-Read the project records in docs/adr/. Identify one decision we made, an alternative we rejected, why we rejected it, and what would make us reconsider. Point to the file and section for each. If something is missing from the records, say so rather than reconstructing it.
+```bash
+CLAUDE_CODE_DISABLE_AUTO_MEMORY=1 claude
 ```
 
-Compare the answer with what actually happened. Success is **supported
-reasoning and honest gaps** — not a plausible story. Then try the
+Paste:
+
+```text
+This is a read-only recovery test. Use CLAUDE.md for project instructions and docs/adr/ as evidence. Do not consult previous chat transcripts or external memory, and do not modify files. Identify one decision we made, a rejected alternative, the recorded rationale, and a reopening condition. Cite the file and section for each; distinguish quotation from inference, and name anything missing rather than reconstructing it.
+```
+
+Compare the answer with what actually happened. Two outcomes, both
+worth having: **cited passages support the reconstruction** — the
+records work; or **the model names a gap** — the test worked too:
+repair the record, run it again. Then try the
 second half: name one changed constraint (say, "word packs per course
 week are now wanted") and ask whether any recorded decision should
 reopen. Watch the *If wrong* lines earn their keep.

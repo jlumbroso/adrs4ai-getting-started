@@ -111,3 +111,20 @@ code, pre, kbd {
 .gb-shot-fig { margin: 1rem 0; }
 .gb-shot { border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; max-width: 100%; }
 .gb-shot-cap { font-size: 0.82rem; opacity: 0.75; margin-top: 0.35rem; line-height: 1.45; }
+
+/* Native-details disclosures (keyboard-accessible expand override) */
+.gb-details {
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 6px;
+  margin: 0.75rem 0;
+  summary {
+    cursor: pointer;
+    padding: 0.45rem 0.8rem;
+    font-weight: 500;
+    background: rgba(0,0,0,0.03);
+    border-radius: 6px;
+    &:focus-visible { outline: 2px solid var(--gb-cool, #2D5F8F); }
+  }
+  .gb-details-content { padding: 0.25rem 0.9rem 0.6rem; }
+}
+.gb-shot-full { white-space: nowrap; }

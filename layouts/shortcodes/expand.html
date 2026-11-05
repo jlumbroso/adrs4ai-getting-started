@@ -1,16 +1,12 @@
-{{- /* Override of hugo-book's expand: identical markup, but every tag
-at column 0 — the theme's 4-space-indented closing </div> is parsed by
-goldmark as an indented code block whenever .Inner ends with a list,
-leaking an unclosed div and nesting every following step card. */ -}}
-<div class="book-expand">
-<label>
-<div class="book-expand-head flex justify-between">
-<span>{{ default (i18n "Expand") (.Get 0) }}</span>
-<span>{{ default "↕" (.Get 1) }}</span>
-</div>
-<input type="checkbox" class="hidden" />
-<div class="book-expand-content markdown-inner">
+{{- /* Override of hugo-book's expand, twice over: (1) column-0 tags —
+the theme's 4-space-indented closing div parses as an indented code
+block after list content, leaking an unclosed div; (2) native
+details/summary instead of the checkbox-in-label hack, so the
+disclosure is keyboard-focusable and screen-reader-legible
+(second-round review, keyboard access). Styled via .gb-details. */ -}}
+<details class="gb-details">
+<summary>{{ default (i18n "Expand") (.Get 0) }}</summary>
+<div class="gb-details-content markdown-inner">
 {{ .Inner | markdownify }}
 </div>
-</label>
-</div>
+</details>

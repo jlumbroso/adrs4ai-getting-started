@@ -24,8 +24,10 @@
   <div class="gb-how">{{ .Inner | markdownify }}</div>
   {{- with $row.media }}{{- $m := . }}{{ with $m.screenshot }}
   <figure class="gb-shot-fig">
+  <a href="{{ . | relURL }}" title="open full-size image">
   <img class="gb-shot" src="{{ . | relURL }}" alt="{{ with $m.alt }}{{ . }}{{ else }}after completing: {{ $row.title }}{{ end }}" loading="lazy">
-  {{ with $m.caption }}<figcaption class="gb-shot-cap">{{ . | markdownify }}</figcaption>{{ end }}
+  </a>
+  {{ with $m.caption }}<figcaption class="gb-shot-cap">{{ . | markdownify }} <a class="gb-shot-full" href="{{ $m.screenshot | relURL }}">full size ↗</a></figcaption>{{ end }}
   </figure>
   {{- end }}{{ end }}
   <p class="gb-verify">✓ <em>You know it worked when:</em> {{ $row.verify | markdownify }}</p>

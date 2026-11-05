@@ -17,7 +17,7 @@ steps:
 
 # Tell us what happened
 
-Two minutes, two moves — and if you're reading this page because
+A few minutes, two moves — and if you're reading this page because
 you're **stopping partway**, that's exactly as valuable:
 [tell us where and why](https://github.com/jlumbroso/adrs4ai-getting-started/issues/new?template=walk-report.md&title=%5Bwalk%5D%20stopped%20partway)
 (ten seconds, three boxes), and thank you — the walkers who stop are
