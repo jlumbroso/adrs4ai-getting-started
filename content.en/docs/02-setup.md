@@ -2,6 +2,29 @@
 title: "Chapter 2 — Setting up your tools"
 weight: 20
 steps:
+  - id: setup-terminal
+    title: "The terminal"
+    minutes: 4
+    context: >-
+      Everything in this guide happens in a terminal — and so does the
+      collaborator you're about to install, which is the real reason to
+      start here: it's the interface models are most fluent in, where
+      everything they do is a line of text you can read.
+    verify: "a terminal is open, and `echo hello` prints hello back"
+    platforms: { macos: full, windows: tentative }
+  - id: setup-claude-code
+    title: "Claude Code"
+    minutes: 6
+    context: >-
+      Claude Code is a model who can read files, run commands, and edit
+      code, in a session you steer from the terminal. We install them
+      first on purpose: they need nothing your Mac doesn't already ship —
+      and **everything below this line, they can now help you through**,
+      including any step of this guide that goes wrong. Wedging with no
+      one to ask is the old world; you just left it.
+    verify: "`claude --version` answers, and `claude` opens a session that responds"
+    requires: [setup-terminal]
+    platforms: { macos: full, windows: tentative }
   - id: setup-homebrew
     title: "Install Homebrew"
     minutes: 8
@@ -13,6 +36,7 @@ steps:
       brought it to the Mac, and nearly everything else in this guide
       arrives through it in one line each.
     verify: "open a NEW terminal window; `brew --version` answers"
+    requires: [setup-terminal]
     platforms: { macos: full, windows: tentative }
   - id: setup-python-asdf
     title: "Python, via asdf"
@@ -22,8 +46,10 @@ steps:
       because the system uses it. The real problem asdf solves is
       *versions over time*: projects pin different Python (and Node, and
       more) versions, and asdf lets any number of them cohabit, switching
-      per-project automatically. When a new Python ships, updating is one
-      command, not an afternoon.
+      per-project automatically. (Honest note: nothing in *this guide*
+      invokes Python — this step provisions the rest of the course,
+      where your harness will want it. If you're racing the clock, it
+      can wait.)
     verify: "`python --version` says 3.12.4"
     requires: [setup-homebrew]
     platforms: { macos: full, windows: tentative }
@@ -49,7 +75,7 @@ steps:
     verify: "it launches; `echo hello` works like anywhere else"
     requires: [setup-homebrew]
   - id: setup-gh
-    title: "Command-line tools: gh"
+    title: "Command-line tools: gh and just"
     minutes: 4
     context: >-
       `gh` is GitHub's own command-line client. Chapter 3 uses it to
@@ -57,22 +83,11 @@ steps:
       without ever leaving the terminal — and once you're logged in with
       it, every model collaborator you work with can use it too (creating
       repos, opening issues) *on your behalf, with your consent per
-      action*.
-    verify: "`gh auth status` shows your username, logged in"
+      action*. `just` is a tiny command runner the template relies on —
+      a menu of named recipes per project; you'll run your first one at
+      the end of Chapter 3.
+    verify: "`gh auth status` shows your username, logged in; `just --version` answers"
     requires: [setup-homebrew]
-  - id: setup-claude-code
-    title: "Claude Code"
-    minutes: 6
-    context: >-
-      Claude Code is the collaborator's body — a model that can read your
-      files, run commands, and edit code, in a session you steer from the
-      terminal. We install it *after* the foundation on purpose: the
-      tools above are yours, worth knowing by hand once. But note what
-      changes at this step — **everything below this line, and much of
-      what's above it, Claude can now do with you**, including diagnosing
-      any step of this guide that went wrong. If something broke earlier,
-      finishing this step and asking is a legitimate repair path.
-    verify: "`claude --version` answers, and `claude` opens a session that responds"
   - id: setup-extensions
     title: "VS Code extensions"
     minutes: 4
@@ -93,14 +108,167 @@ steps:
 *macOS path. Windows readers: tentative notes are marked — we haven't
 walked them end-to-end yet, and we'd genuinely value your corrections
 ([open an issue](https://github.com/jlumbroso/adrs4ai-getting-started/issues)
-with the step ID). Budget 25–40 minutes, mostly waiting on installers.*
+with the step ID). Budget 30–45 minutes, mostly waiting on installers.
+This chapter opens by installing the helper — so every later step has
+someone to ask.*
 
 Each tool below comes with its *why* — not as filler, but because
 "install these five things" with no reasons is exactly the context-free
 instruction style this whole methodology exists to replace.
 
+{{< step setup-terminal >}}
+A terminal is a conversation with your computer in text: you type one
+line in its language, press Enter, and it answers. It's the oldest
+interface computers have — and still the densest: things that take
+seven clicks and two menus are one line here. More to the point for
+this guide: it's the interface your model collaborators are most
+fluent in. When they work, every action they take is printed as a line
+of text — in the same language you're about to start learning.
+
+Open it: ⌘-space, type "Terminal", Enter. A window appears with a line
+of text ending in `%` — the *prompt*. That's the computer, waiting.
+
+Five facts, enough to not be lost:
+
+1. **One line at a time.** Type, Enter, read the answer, new prompt.
+   Copy-pasting a command from a guide is not cheating — it's how
+   everyone does it (reading it first is the habit worth having).
+2. **Quiet usually means working.** Installers often print nothing for
+   a minute. A new prompt is the "done" signal, not silence.
+3. **Passwords type invisibly.** When something asks for your Mac
+   password, nothing appears as you type — no dots, nothing. That's a
+   security feature, not a freeze. Type it and press Enter.
+4. **ctrl-C abandons a running command** and gives the prompt back.
+   It's the universal "never mind" — you cannot break anything with it
+   that matters.
+5. **"Open a new terminal" is a real instruction** (⌘-N). A terminal
+   reads its configuration once, at birth — so a tool installed a
+   minute ago often exists only in windows opened *after* the install.
+   When a step says "open a new terminal," that's why.
+
+Try it:
+
+```bash
+echo hello
+```
+
+{{< expand "What each word does" >}}
+- `echo` — print back whatever follows.
+- `hello` — the text to print.
+{{< /expand >}}
+
+It answers `hello`. You've now run a command. Everything else in this
+guide is this same move, with longer sentences.
+{{< /step >}}
+
+{{< step setup-claude-code >}}
+Paste into the terminal:
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+{{< expand "What each word does" >}}
+- `curl` — the standard download-from-a-URL tool (your Mac ships it).
+- `-f` — fail quietly on server errors instead of saving an error page.
+- `-s` / `-S` — silent (no progress bar), but do show a message if it fails.
+- `-L` — follow redirects.
+- the URL — Anthropic's official installer script. You can open it in a browser and read it before running it — that's not paranoia, that's the habit this guide is teaching.
+- `|` — the *pipe*: feed the left side's output straight into the right side's input.
+- `bash` — run what arrives. You'll meet this exact download-then-run shape again in a few minutes, installing Homebrew.
+{{< /expand >}}
+
+**The different ways** — there are several legitimate installs, and
+this guide recommends exactly one. The others are listed so that when
+you meet them in the wild, you know they're the same program:
+
+- **The native installer** (above — *recommended, and the guide's one
+  path*): needs nothing but what your Mac already ships, and it keeps
+  itself updated in the background.
+- **Homebrew** (`brew install --cask claude-code`): fine — but you
+  don't have Homebrew yet (next step), and this install doesn't update
+  itself; you'd have to remember `brew upgrade`.
+- **npm** (`npm install -g @anthropic-ai/claude-code`): for people who
+  already live in Node (version 22+). Under the hood it delivers the
+  same native program as the installer above.
+
+> **[Windows — tentative]** In PowerShell:
+> `irm https://claude.ai/install.ps1 | iex` — or
+> `winget install Anthropic.ClaudeCode`.
+
+Then **open a new terminal** (fact 5!) and run `claude` once, in any
+folder: they'll walk you through logging in with your Anthropic
+account — the same one you've been using in class all semester, which
+is verified to work. (Reading this from outside the course? Claude
+Code needs a paid Claude plan or API access — the free plan doesn't
+include it; check current pricing before this step.)
+
+One honest note: this is the single step of the guide where nobody can
+help you yet — you can't be rescued *by* the thing you're installing.
+That's exactly why it's the carefullest page here, and why the one
+recommended path is the one with the fewest moving parts. If it does
+fail: the error message is the clue, the "this doesn't match" link
+below takes ten seconds, and Anthropic's own
+[troubleshooting page](https://code.claude.com/docs/en/troubleshoot-install)
+matches errors to fixes.
+
+<!-- screenshot: claude-first-run -->
+{{< /step >}}
+
+## Where Claude Code lives — and why this guide picks the terminal
+
+The same collaborator is reachable from four surfaces: the **terminal**
+(what you just installed), a **desktop app** (the same engine in a
+graphical shell), a **VS Code extension** (a panel inside the editor
+you'll install later this chapter), and **Claude Code on the web**
+(sessions on cloud machines, from a browser). None of them is wrong.
+This guide teaches the terminal, for three reasons that are really one:
+
+1. **Transparency is the medium, not a feature.** In the terminal,
+   everything they do is a printed line — there's no "view logs"
+   button to find, because the log *is* the conversation you're both
+   having. You consent to actions as they happen, in plain sight.
+2. **What you watch, you inherit.** Every command they run is a
+   command you could run yourself; a few weeks of watching is an
+   apprenticeship by proximity. The friendlier surfaces wrap — which
+   means hide — exactly the part you're here to learn.
+3. **The collaborator lives in your project.** A session starts inside
+   a folder, and that folder — its files, its decision records — is
+   the memory you share. Chapter 3's whole method is *the record lives
+   in the repository*; the terminal is the surface where that's
+   literally visible, not a metaphor behind a pane.
+
+And honestly: the other surfaces are easier to learn *after* the
+terminal than before it. Learn the unwrapped thing once, and every
+wrapper becomes obvious.
+
+## Your guide, on call — the rule for the rest of this chapter
+
+From this line down, every step of this guide has a diagnostician: if
+anything wedges — an install that errors, a command "not found," a
+password prompt you're unsure about — open a terminal, run `claude`,
+and ask. Paste the exact error; exact beats paraphrased, every time.
+Something like:
+
+```text
+I'm on step setup-homebrew of a setup guide. I ran the install command and got this: [paste the error]. Diagnose it, and tell me what to type — I want to type it myself.
+```
+
+That last clause is the rule, and it's the deal for the rest of this
+chapter: **they diagnose, you type.** The tools below are yours —
+worth installing by your own hand once, because you'll maintain them
+for years. (It's also what keeps every walker of this guide on one
+shared path: ten people who each let a model improvise a setup end up
+with ten different machines, and then no step's verify line means the
+same thing twice.)
+
+One more thing, so Chapter 3 lands right: what you installed is a
+helper you can ask. You haven't *recruited* anyone yet — reading your
+project's mission, consenting to it, taking a name. That's Chapter 3,
+and it's a different, better thing.
+
 {{< step setup-homebrew >}}
-Paste into Terminal (⌘-space, type "Terminal", Enter):
+Paste into the terminal:
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -109,11 +277,8 @@ Paste into Terminal (⌘-space, type "Terminal", Enter):
 {{< expand "What each word does" >}}
 - `/bin/bash -c "…"` — run the quoted text as a shell script, using the system's own bash.
 - `$( … )` — "replace this with the output of the command inside": the script is downloaded first, then handed to bash.
-- `curl` — the standard download-from-a-URL tool.
-- `-f` — fail quietly on server errors instead of saving an error page.
-- `-s` / `-S` — silent (no progress bar), but do show a message if it fails.
-- `-L` — follow redirects.
-- the URL — Homebrew's official install script, from Homebrew's own GitHub repository. You can open it in a browser and read it first — that's not paranoia, that's the habit this guide is teaching.
+- `curl -fsSL` — the same four flags, and the same download-then-run shape, as the Claude Code installer you already ran; reading the script first is the same habit.
+- the URL — Homebrew's official install script, from Homebrew's own GitHub repository.
 {{< /expand >}}
 
 It will ask for your Mac password (typing shows nothing — that's
@@ -153,7 +318,8 @@ asdf global python 3.12.4
 - `asdf global python 3.12.4` — make it the default everywhere (*global*), until a project folder says otherwise with a local pin.
 {{< /expand >}}
 
-(The install compiles; a few minutes of scrolling text is expected.)
+(The install compiles; a few minutes of scrolling text is expected —
+fact 2 from the terminal step applies.)
 
 > **[Windows — tentative]** asdf is Unix-only; the spiritually closest
 > path is `winget install Python.Python.3.12` — or WSL2, where
@@ -180,33 +346,13 @@ brew install --cask alacritty
 
 {{< step setup-gh >}}
 ```bash
-brew install gh
+brew install gh just
 gh auth login
 ```
 
 Pick GitHub.com → HTTPS → login with a web browser, and follow the code
 it gives you. (No GitHub account yet? Chapter 3 step P1 covers signing
 up — do that first, then come back for `gh auth login`.)
-{{< /step >}}
-
-{{< step setup-claude-code >}}
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
-```
-
-{{< expand "What each word does" >}}
-- `curl -fsSL https://claude.ai/install.sh` — download Anthropic's official installer script (the flags are the same four as Homebrew's: fail-cleanly, silent-but-report-errors, follow-redirects).
-- `|` — the *pipe*: feed the left side's output straight into the right side's input.
-- `bash` — run what arrives. Same download-then-run shape as T1, same habit: the URL is the vendor's own, and you can read the script in a browser first.
-{{< /expand >}}
-
-Then open a new terminal and run `claude` once in any folder: it walks
-you through logging in with your Anthropic account — the same one
-you've been using in class all semester, which is verified to work.
-(Reading this from outside the course? Claude Code needs a paid Claude
-plan or API access — check current pricing before this step.)
-
-<!-- screenshot: claude-first-run -->
 {{< /step >}}
 
 {{< step setup-extensions >}}

@@ -124,7 +124,8 @@ personalizes every command below:
 {{< /step >}}
 
 {{< step gh-login >}}
-If you skipped T5's login earlier (no account yet), now:
+If you skipped the login during Chapter 2's *Command-line tools* step
+(no account yet), now:
 
 ```bash
 gh auth login
@@ -134,7 +135,7 @@ Pick **GitHub.com** → **HTTPS** → **login with a web browser**, and
 follow the code it shows you.
 
 {{< expand "What each word does" >}}
-- `gh` — GitHub's command-line client (installed in T5).
+- `gh` — GitHub's command-line client (installed in Chapter 2's *Command-line tools* step).
 - `auth` — its authentication command group.
 - `login` — start a new login: it opens github.com in your browser, shows you a one-time code to type there, and stores the resulting credential locally so every later `gh` command acts as {{< var github-username >}}.
 {{< /expand >}}
