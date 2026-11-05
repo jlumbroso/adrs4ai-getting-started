@@ -99,7 +99,9 @@ steps:
     verify: "⌘-shift-X → \"Installed\" lists both"
     requires: [setup-vscode]
     media:
-      screenshot: shots/extension-panel.png
+      screenshot: shots/installed-extensions.png
+      alt: "VS Code Installed extensions list containing ADRs for AI by Jérémie Lumbroso and Terminals Manager by Fabio Spampinato"
+      caption: "The Installed list with both extensions. (Captured on Linux VS Code — the controls are the same ones to look for on macOS.)" 
 ---
 
 # Chapter 2 — Setting up your tools

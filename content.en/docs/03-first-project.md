@@ -40,6 +40,10 @@ steps:
       for everything that follows.
     verify: "VS Code shows the project files on the left; `ls` in its terminal shows `CLAUDE.md`"
     requires: [use-template, setup-vscode]
+    media:
+      screenshot: shots/project-files.png
+      alt: "VS Code Explorer showing CLAUDE.md, README.md, and docs/adr with example Markdown records"
+      caption: "A project is a folder: its files in Explorer, `CLAUDE.md` and `docs/adr/` included. (A small illustration workspace, not the full template clone.)" 
   - id: recruit
     title: "Recruit your collaborator — mission and project, one paste"
     minutes: 12
@@ -62,6 +66,10 @@ steps:
       slowly the first time.
     verify: "your collaborator answered with *QST cards*, not code — each carrying options, a recommendation, and an *If wrong:* line"
     requires: [recruit]
+    media:
+      screenshot: shots/open-question-panel.png
+      alt: "ADRs for AI displaying a deployment question, its two alternatives, recommendation, confidence, If-wrong line, and a blank answer field"
+      caption: "The real extension rendering a question like yours: options, recommendation, confidence, the *If wrong* line — and the answer field waiting. (Illustration records, captured in the published extension.)" 
   - id: first-answers
     title: "Your first answers"
     minutes: 12
@@ -75,6 +83,10 @@ steps:
       agreeing costs you two words.
     verify: "every QST shows answered (the extension's list drains to zero), and your collaborator is building"
     requires: [project-blurb, setup-extensions]
+    media:
+      screenshot: shots/open-question-panel-numbered.png
+      alt: "The question panel with three numbered highlights: 1 opens ADRs for AI, 2 is the answer field, 3 submits the answer"
+      caption: "Where things are: **1** opens ADRs for AI · **2** is the answer field · **3** submits. Cmd+Enter submits too; Skip comes back later." 
   - id: ship-pages
     title: "Ship it"
     minutes: 10
@@ -249,7 +261,6 @@ Notice what that is: options you can weigh without leaving the block,
 a committed position, and the fact that would change it. Two or three
 like it are now in your `docs/adr/` folder, waiting for you.
 
-<!-- screenshot: adr-qst-rendered -->
 {{< /step >}}
 
 {{< step first-answers >}}
@@ -288,7 +299,6 @@ meeting git's three distinct moves, in order:
 (We tested this on iOS; Android should match — tell us.)
 {{< /expand >}}
 
-<!-- screenshot: extension-qst-view -->
 {{< /step >}}
 
 {{< step ship-pages >}}

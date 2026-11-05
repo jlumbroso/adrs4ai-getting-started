@@ -22,8 +22,11 @@
   <p class="gb-warn"><strong>This step changes or removes things.</strong> Read it fully before running anything.</p>
   {{- end }}
   <div class="gb-how">{{ .Inner | markdownify }}</div>
-  {{- with $row.media }}{{ with .screenshot }}
-  <img class="gb-shot" src="{{ . | relURL }}" alt="after completing: {{ $row.title }}" loading="lazy">
+  {{- with $row.media }}{{- $m := . }}{{ with $m.screenshot }}
+  <figure class="gb-shot-fig">
+  <img class="gb-shot" src="{{ . | relURL }}" alt="{{ with $m.alt }}{{ . }}{{ else }}after completing: {{ $row.title }}{{ end }}" loading="lazy">
+  {{ with $m.caption }}<figcaption class="gb-shot-cap">{{ . | markdownify }}</figcaption>{{ end }}
+  </figure>
   {{- end }}{{ end }}
   <p class="gb-verify">✓ <em>You know it worked when:</em> {{ $row.verify | markdownify }}</p>
   {{- with $row.platforms }}{{ if eq .windows "tentative" }}
