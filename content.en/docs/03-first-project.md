@@ -9,7 +9,7 @@ steps:
       GitHub is where your project's code, its decision records, and (in
       a few steps) its live website all live. If you already have an
       account, enter your username below and skip to P2.
-    verify: "you can log in at github.com, and your username is saved below (it personalizes the rest of this guide)"
+    verify: "you can log in at github.com, and your username is saved above (it personalizes the rest of this guide)"
     media:
       screenshot: shots/gh-signup.png
       alt: "GitHub's signup form with email, password, and username fields"
@@ -60,7 +60,7 @@ steps:
       poetic: they read the mission first, *consent* to it, and pick
       their own name. The paste below carries the mission AND the
       project, so one message starts everything.
-    verify: "your collaborator has a name; `CLAUDE.md`'s AI line carries it; `git log` shows their configuration commit"
+    verify: "your collaborator has a name; `CLAUDE.md`'s AI line carries it; `git log --oneline -5` shows their configuration commit (q quits any pager)"
     requires: [clone-open, setup-claude-code]
   - id: project-blurb
     title: "The questions come back"
@@ -108,7 +108,7 @@ steps:
       The first change *after* a build is where vibe coding usually
       starts shedding context. Not here — one more decision, on the
       record.
-    verify: "the tweak is live, and `grep -rn '^### QST' docs/adr/` shows your decisions accumulating — that grep is retrieval enough for this first walk"
+    verify: "the tweak is live, and `grep -rn '^### QST' docs/adr/ --exclude-dir=templates` shows your decisions accumulating — that grep is retrieval enough for this first walk"
     requires: [ship-pages]
   - id: cold-resume
     title: "The capstone: can a stranger recover the why?"
@@ -118,19 +118,7 @@ steps:
       produced it. That's a testable claim, and you're about to test it
       — on a session with no memory of anything you did today.
     verify: "the cited passages support the reconstruction — or the model names a gap, in which case the test worked: repair the record and repeat"
-    requires: [tweaks]
-  - id: terminals
-    title: "The crew, one click (optional extension)"
-    minutes: 4
-    optional: true
-    context: >-
-      Real projects grow more than one collaborator session, and
-      reopening them one by one gets old. The template ships the cure —
-      but its full machinery (tmux, the pneumatic launcher) is beyond
-      this guide's installed path, so this is an extension to do with
-      your collaborator, not a required step.
-    verify: "Terminals: Run opens your collaborator's terminal(s) automatically"
-    requires: [recruit]
+    requires: [first-answers]
     media:
       screenshot: shots/terminals-run.png
       alt: "The VS Code command palette showing the Terminals: Run command"
@@ -185,11 +173,12 @@ guide uses below, but it's yours:
 
 {{< var-input project-name "Your repository name" "wordle-with-records" >}}
 
-→ **Public** (the free-hosting path: GitHub Pages on a free account
-needs a public repository — your code and records will be visible,
-which for this project is a feature; want private source anyway? The
-site step then needs a paid plan, or a different host — your call,
-made knowingly) → Create.
+→ **Public** → Create. (Public is the free default: Pages on a free
+account needs a public repository, and your code *and records* will
+be visible — the name you give the template is the name the world
+sees, and a handle is fine. Students: GitHub Education's free Pro
+lets you keep the source private instead — apply early; the game
+site is public either way.)
 
 <!-- screenshot: use-template-button -->
 {{< /step >}}
@@ -215,16 +204,20 @@ happen.
 
 {{< step recruit >}}
 In the VS Code terminal, run `claude`. First launch in a new folder
-asks setup questions — trust the folder (yes — it's your own
-repository), and project MCP servers (**skip/decline for now**: the
-template's server wants Node, which this path doesn't install;
-nothing in this hour needs it).
+asks whether you trust the folder — yes, it's your own repository.
+You may then see that an MCP server called `adrs4ai` **failed to
+start**: expected, not broken — it wants Node, which arrives in
+*Ship it*; after that install, the next launch starts it. (Four
+different things, for the record: the VS Code *extension* displays
+records; the Claude *plugin/skill* teaches authoring; the MCP
+*server* provides tools; *Node* runs JavaScript tooling. Only the
+last two wait for Ship it.)
 
 Then paste this — **the mission and the project together, one
 message** (edit the project half freely; it's yours):
 
 ```text
-Hello — I have a mission for you: my first deliberatively-built project. Read CLAUDE.md and tell me if you accept — any pushback welcome. If you accept: configure the template (the ⟦⟧ placeholders and whatever else it asks), introduce yourself, and then we start on this:
+Hello — I have a mission for you: my first deliberatively-built project. Read CLAUDE.md and tell me if you accept — any pushback welcome. If you accept: configure the template (the ⟦⟧ placeholders and whatever else it asks), set adrManager.humanName in .vscode/settings.json to MY name (the template ships its author's), introduce yourself, and then we start on this — using the template's adr-authoring skill when you write the cards:
 
 The project is a Wordle variant — guess the word, colored feedback per letter — with a twist: the answers are computer science words (ARRAY, STACK, QUEUE, CACHE, TOKEN…). I want it hosted free on GitHub Pages, built with Vue using scoped CSS so styles stay component-local. Before you write any code: what are the 2–3 decisions we should settle first? Put them to me as proper QST cards in the record — with your recommendation on each.
 ```
@@ -232,6 +225,22 @@ The project is a Wordle variant — guess the word, colored feedback per letter 
 They'll read, decide, name themselves, fill the template's
 placeholders (asking you for anything that's genuinely yours to
 answer), commit the configuration — and then turn to the project.
+
+{{< expand "What might happen instead — all normal" >}}
+- **They ask questions before accepting** — answer them; pushback is
+  the method working.
+- **They ask you to run `/rename` or `/color`** — type those at the
+  Claude prompt; they're renaming their own seat.
+- **They decline** — rare; ask why, start a fresh session, and tell
+  us in the debrief.
+- **Claude asks permission before a command** — read it. Inside your
+  own project, Allow is the normal answer; `git push` will *always*
+  ask — that gate is yours, on purpose.
+- **A rule quietly changed here**: in Chapter 2 you typed and they
+  diagnosed. From recruitment on, they type too — in your repo,
+  under your name. The name attributes; it does not take
+  responsibility. The repo, the commits, and the site are yours.
+{{< /expand >}}
 
 <!-- screenshot: recruit-consent -->
 {{< /step >}}
@@ -253,17 +262,31 @@ this exact blurb — yours will differ, and should):
 > - **B — Vite project + GitHub Action deploying to Pages**: true
 >   scoped styles, the standard modern path. Costs one workflow file.
 >
-> **Recommendation**: **B.** *Rationale*: the project's own stated
+> **Recommendation**: (by gridline, Claude Fable 5, 2026-11-05)
+> **B — Vite + Actions.** *Rationale*: the project's own stated
 > constraint is *scoped CSS* — A quietly downgrades it from a language
-> feature to a promise. *Confidence*: 0.7. ***If wrong***: if
-> deployment fights us past ~15 minutes, I pause and ask you whether
-> to relax scoped CSS, extend the budget, or pick another path — and
-> we record whichever trade-off you accept.
+> feature to a promise. *Confidence*: 0.7 — because scoped styles are
+> an SFC compiler feature and a Pages Action is one file; not higher
+> because the base-path step is where first deploys fail. ***If
+> wrong***: if Pages can't deploy from Actions on this account, or
+> the app won't serve under the repository path once `base` is set,
+> this flips to A — and I bring the scoped-CSS trade-off back to you
+> rather than relaxing it. (Separate thing, a *budget*: if we're past
+> ~15 minutes of deploy trouble, I pause and ask.)
+>
+> **ANS:** (by you)
+> [Fill this in]
 
 Notice the *If wrong* doesn't quietly give away the thing the
 recommendation was protecting — it hands the trade-off back to the
 decider. If a falsifier ever relaxes your own requirement without
-asking you, send it back.
+asking you, send it back. And that *0.7 — because* is an action band,
+not decoration: at 0.7 the call is **yours** — read the options,
+don't just agree.
+
+(If code came back instead: *"Stop — no code yet. Put the 2–3
+decisions into docs/adr/ as question cards and tell me the file
+name."*)
 
 Notice what that is: options you can weigh without leaving the block,
 a committed position, and the fact that would change it. Two or three
@@ -276,10 +299,18 @@ like it are now in your `docs/adr/` folder, waiting for you.
 and seeing that is the lesson:
 
 1. **The extension**: click the ADRs-for-AI icon in VS Code's
-   sidebar — open questions appear as a list; open one, read the
-   recommendation, type your answer in the ANS box. ("A, agreed." is a
-   complete answer when you agree — the *why* is already on the page.
-   Diverging? Then say why; the slot has no size limit.)
+   sidebar — open questions appear as a list; open one, check the
+   **"Answering as"** field shows *your* name (not the template
+   author's), read the recommendation, and type your answer in the
+   ANS box. Three honest shapes, all complete: **agree with your own
+   reason** ("B — the scoped-CSS argument holds"); **override with a
+   reason**; or **explicit deferral** ("I can't evaluate this one —
+   going with your recommendation; reopen if the deploy fails").
+   Deferring and agreeing are different acts; the record should know
+   which happened. And before answering any card, three send-backs:
+   no *because* after the confidence, no byline, or an *If wrong*
+   that's just a cost — send it back. On one card this walk, push
+   back on purpose: ask what would make them choose the other option.
 2. **The file itself**: open the ADR, find each card's `**ANS:**` line
    (the `[Fill this in]` placeholder marks the blank), type your
    answer, save. There is no database — and now you know it.
@@ -334,7 +365,7 @@ meeting git's three distinct moves, in order:
 {{< /step >}}
 
 {{< step ship-pages >}}
-One runtime check first: if your P7 decision chose a **local Vite
+One runtime check first: if your deployment decision chose a **local Vite
 build** (the common path), that's JavaScript tooling, which needs
 Node — not installed so far, on purpose. Just in time, then:
 
@@ -348,9 +379,11 @@ Actions-only build that never runs Node on your machine — a fine
 choice; make it deliberately, not by accident.)
 
 Your collaborator builds the Wordle and sets up GitHub Pages
-deployment (they know how; the decisions you made in P7 govern the
-details — ask them to walk you through enabling Pages if a browser
-step needs your click). The address has two parts — account AND
+deployment (they know how; the decisions you made answering the cards govern the
+details). Two moments to expect: their `git push` **pauses for your
+approval every time** — that's your gate, not a failure; and enabling
+Pages can be done without the browser:
+`gh api -X POST repos/{{< var github-username >}}/{{< var project-name >}}/pages -f build_type=workflow`. The address has two parts — account AND
 repository: check
 `https://{{< var github-username >}}.github.io/{{< var project-name >}}/`,
 and have your collaborator confirm Vite's `base` is set to the
@@ -386,37 +419,29 @@ CLAUDE_CODE_DISABLE_AUTO_MEMORY=1 claude
 Paste:
 
 ```text
-This is a read-only recovery test. Use CLAUDE.md for project instructions and docs/adr/ as evidence. Do not consult previous chat transcripts or external memory, and do not modify files. Identify one decision we made, a rejected alternative, the recorded rationale, and a reopening condition. Cite the file and section for each; distinguish quotation from inference, and name anything missing rather than reconstructing it.
+This is a read-only recovery test. Use CLAUDE.md for project instructions and docs/adr/ as evidence — but ignore docs/adr/templates/, and do not run git log, consult previous chat transcripts, or external memory, and do not modify files. Identify one decision we made, a rejected alternative, the recorded rationale, and a reopening condition. Cite the file and section for each; distinguish quotation from inference, and name anything missing rather than reconstructing it.
 ```
 
-Compare the answer with what actually happened. Two outcomes, both
-worth having: **cited passages support the reconstruction** — the
-records work; or **the model names a gap** — the test worked too:
-repair the record, run it again. Then try the
+Before pasting: write down, on paper, which decision, which rejected
+alternative, and which reopening condition you expect them to find —
+that's your answer key. Then grade with this rubric, alone:
+
+- **Pass** — every citation opens to a real file and section, and
+  every quoted passage is there verbatim (`grep` a phrase to check).
+- **Partial** — they name a gap honestly. The test worked: the
+  record needs repair; fix it and run again.
+- **Fail** — a fluent reconstruction whose citations don't hold.
+  That's the failure Chapter 1 warned about — and exactly the thing
+  to report in the debrief.
+
+(One boundary for the prompt's sake: the test excludes `git log` and
+`docs/adr/templates/` — commit messages and specimen files would let
+a sharp model cheat.) Then try the
 second half: name one changed constraint (say, "word packs per course
 week are now wanted") and ask whether any recorded decision should
 reopen. Watch the *If wrong* lines earn their keep.
 
 That — not trust, not vibes — is what the records were for.
-{{< /step >}}
-
-{{< step terminals >}}
-In the project terminal:
-
-```bash
-just refresh-terminals
-```
-
-{{< expand "What each word does" >}}
-- `just` — a command runner the template ships configured; it reads the project's `justfile`, a menu of named recipes.
-- `refresh-terminals` — the recipe that regenerates `.vscode/terminals.json`: the list of model-collaborator terminals this project knows how to reopen.
-{{< /expand >}}
-
-…then ⌘-shift-P → **Terminals: Run**. Every configured session
-launches at once. Tomorrow: `code .`, one Terminals: Run, and the crew
-is back — reading the records you both wrote today, remembering *why*
-everything is the way it is.
-
 {{< /step >}}
 
 That's the guide — and you're among the first to walk it: your stall

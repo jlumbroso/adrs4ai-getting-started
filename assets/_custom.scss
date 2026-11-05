@@ -128,3 +128,19 @@ code, pre, kbd {
   .gb-details-content { padding: 0.25rem 0.9rem 0.6rem; }
 }
 .gb-shot-full { white-space: nowrap; }
+
+/* Long one-liners wrap instead of hiding off-screen (review M10:
+   Chroma emits flex line-spans whose min-content defeats pre-wrap) */
+article pre, article pre code, article pre code span {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+article pre code > span { display: block; }
+
+.gb-step-id {
+  font-size: 0.7rem;
+  opacity: 0.45;
+  font-weight: 400;
+  background: none;
+}

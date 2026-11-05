@@ -25,6 +25,17 @@ that prerequisite first.*
    template → recruit → first decisions → live on GitHub Pages → the
    cold-resumption capstone. (~60 min of steps)
 
+**How to read this guide** — four spellings worth knowing up front:
+an **ADR** (*Architectural Deliberation Record* — the template's own
+expansion, with the industry's "Architecture Decision Record" as its
+ancestor) is one file of recorded decisions in `docs/adr/`; a
+**question card** is one block inside it — options, a recommendation,
+an *If wrong* line, and an `ANS:` slot for you. Brackets, three
+species: `⟨github-username⟩` — this site fills it once you set your
+variables; `⟦LIKE-THIS⟧` — template placeholders your collaborator
+fills; `[Fill this in]` — the one blank that's *yours*, the answer
+slot. Click any dark code block to copy it.
+
 Every step says how to verify it worked, your checkmarks persist in
 your browser (they never leave it), and the
 **[All tasks]({{< relref "/tasks" >}})** page shows the whole trail in

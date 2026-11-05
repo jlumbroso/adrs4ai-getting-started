@@ -19,10 +19,11 @@ steps:
     context: >-
       Claude Code is a model who can read files, run commands, and edit
       code, in a session you steer from the terminal. We install them
-      first on purpose: they need nothing your Mac doesn't already ship —
+      first on purpose: they need almost nothing your Mac doesn't ship —
+      one PATH line and your Anthropic login —
       and **everything below this line, they can now help you through**,
       including any step of this guide that goes wrong.
-    verify: "`claude --version` answers, and `claude` opens a session that responds"
+    verify: "`claude --version` answers, and `claude` opens a session that responds (not found? `~/.local/bin/claude --version` means installed but off PATH — paste the Setup-notes line)"
     requires: [setup-terminal]
     platforms: { macos: full, windows: tentative }
     media:
@@ -47,7 +48,7 @@ steps:
       alt: "A terminal where brew --version answers with a version number"
       caption: "The verify state: `brew --version` answers." 
   - id: setup-python-asdf
-    title: "Python, via asdf"
+    title: "Python, via asdf (optional for this guide; required for the course)"
     minutes: 8
     context: >-
       Your Mac has a Python, but it's Apple's — old, and risky to touch
@@ -70,17 +71,6 @@ steps:
       the one with the extension we rely on.
     verify: "in a terminal, `code --version` answers"
     requires: [setup-homebrew]
-  - id: setup-alacritty
-    title: "A fast terminal: Alacritty (optional, recommended)"
-    minutes: 3
-    context: >-
-      You're about to spend real time in a terminal, and snappiness
-      compounds — Alacritty is one of the fastest terminals there is, and
-      it has tabs now, which removes the old reason to skip it. (Entirely
-      optional: Terminal.app and VS Code's built-in terminal both work
-      for everything in this guide.)
-    verify: "it launches; `echo hello` works like anywhere else"
-    requires: [setup-homebrew]
   - id: setup-gh
     title: "Command-line tools: gh and just"
     minutes: 4
@@ -92,8 +82,8 @@ steps:
       opening issues) *as you*. Which of their commands need your ok is
       set by your project's permission settings — you'll see (and own)
       that file in the template. `just` is a tiny command runner the template relies on —
-      a menu of named recipes per project (its first appearance is the
-      optional crew extension at the end of Chapter 3).
+      a menu of named recipes per project (your collaborator uses it to
+      mint records in Chapter 3).
     verify: "`gh auth status` shows your username, logged in; `just --version` answers"
     requires: [setup-homebrew]
   - id: setup-extensions
@@ -103,8 +93,8 @@ steps:
       Two small additions make the decision records of Chapter 3
       first-class citizens in your editor: **ADRs for AI** renders them,
       collects every open question into one view, and lets you answer in
-      place; **Terminals Manager** relaunches your project's model
-      sessions in one click (you'll meet that at the end of Chapter 3).
+      place; **Terminals Manager** relaunches a project's terminals in
+      one click (used later in the course).
     verify: "⌘-shift-X → \"Installed\" lists both"
     requires: [setup-vscode]
     media:
@@ -118,6 +108,9 @@ steps:
 *This is the **macOS course path**: written for CIS 7000-008, where
 every walker has an Anthropic account with Claude Code access (Claude
 Code is not on the free plan — outside readers, check that first).
+Hardware: an **Apple Silicon Mac (M1 or later) on macOS 15+** —
+ → About This Mac to check; Homebrew dropped Intel Macs in 2026,
+and the Intel fallback is in the Homebrew step.
 Windows notes are partial orientation, not a tested walkthrough —
 corrections genuinely wanted
 ([open an issue](https://github.com/jlumbroso/adrs4ai-getting-started/issues)
@@ -150,12 +143,13 @@ Five facts, enough to not be lost:
    security feature, not a freeze. Type it and press Enter.
 4. **ctrl-C stops the current command** and gives the prompt back.
    It's the universal "never mind" — though it can leave a job
-   half-done, so keep the output on screen and ask your guide before
-   retrying anything that was mid-install.
+   half-done, so keep the output on screen and ask for help (Claude
+   Code, from the next step on) before retrying anything mid-install.
 5. **"Open a new terminal" is a real instruction** (⌘-N). A terminal
    reads its configuration once, at birth — so a tool installed a
    minute ago often exists only in windows opened *after* the install.
-   When a step says "open a new terminal," that's why.
+   When a step says "open a new terminal," that's why. (Inside VS
+   Code later: the ＋ in the terminal panel does the same.)
 
 Try it:
 
@@ -207,9 +201,11 @@ you meet them in the wild, you know they're the same program:
 > `irm https://claude.ai/install.ps1 | iex` — or
 > `winget install Anthropic.ClaudeCode`.
 
-Then **open a new terminal** (fact 5!) and run `claude` once, in any
-folder: they'll walk you through logging in with your Anthropic
-account — the same one you've been using in class all semester, which
+The installer ends with a **Setup notes** block containing one
+`echo … >> ~/.zshrc` line — **paste it** (the installer tells you the
+fix but doesn't change your PATH itself). Then **open a new terminal**
+(fact 5!) and run `claude` once, in any folder: they'll walk you
+through logging in with your Anthropic account — the same one you've been using in class all semester, which
 is verified to work. (Reading this from outside the course? Claude
 Code needs a paid Claude plan or API access — the free plan doesn't
 include it; check current pricing before this step.)
@@ -284,9 +280,17 @@ Paste into the terminal:
 {{< /expand >}}
 
 It will ask for your Mac password (typing shows nothing — that's
-normal) and may install Apple's Command Line Tools first. At the end it
-prints two `echo … >> ~/.zprofile` lines under "Next steps" — paste
-those too.
+normal) and may install Apple's Command Line Tools first — that
+download alone can take 10–20 minutes; quiet means working. At the
+end, **paste every line it prints under "Next steps"** (usually
+three).
+
+> **[Intel Mac]** Homebrew now supports Apple Silicon only. The
+> no-Homebrew path: Claude Code's installer works as-is; VS Code from
+> its `.dmg`; `gh` from its `.pkg` on github.com/cli/cli/releases;
+> `just` via `curl --proto '=https' --tlsv1.2 -sSf
+> https://just.systems/install.sh | bash -s -- --to ~/.local/bin`;
+> Node from nodejs.org's `.pkg`; skip asdf.
 
 > **[Windows — tentative]** The closest equivalent is `winget` (built
 > into Windows 11); `choco` also works. Tool names below mostly match.
@@ -340,20 +344,18 @@ open any folder as a project.
 <!-- screenshot: vscode-first-open -->
 {{< /step >}}
 
-{{< step setup-alacritty >}}
-```bash
-brew install --cask alacritty
-```
-{{< /step >}}
-
 {{< step setup-gh >}}
 ```bash
 brew install gh just
 gh auth login
 ```
 
-Pick GitHub.com → HTTPS → login with a web browser, and follow the code
-it gives you. (No GitHub account yet? Chapter 3 step P1 covers signing
+It asks four things, in this order: **Where do you use GitHub?** →
+GitHub.com · **How would you like to authenticate?** → login with a
+web browser · **Preferred protocol** → HTTPS · **Authenticate Git
+with your GitHub credentials?** → **Y** (this last one is what makes
+`git push` work later — don't skip it). Then follow the code it gives
+you. (No GitHub account yet? Chapter 3 step P1 covers signing
 up — do that first, then come back for `gh auth login`.)
 {{< /step >}}
 
