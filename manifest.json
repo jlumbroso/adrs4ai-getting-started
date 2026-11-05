@@ -1,0 +1,15 @@
+{
+  "name": "Getting Started with ADRs4AI",
+  "short_name": "Getting Started with ADRs4AI",
+  "start_url": "/adrs4ai-getting-started/",
+  "scope": "/adrs4ai-getting-started/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/adrs4ai-getting-started/favicon.svg",
+      "sizes": "512x512"
+    }
+  ]
+}

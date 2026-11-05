@@ -1,0 +1,1 @@
+navigator.serviceWorker&&navigator.serviceWorker.register("/adrs4ai-getting-started/sw.js",{scope:"/adrs4ai-getting-started/"})
