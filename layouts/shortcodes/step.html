@@ -29,5 +29,5 @@
   {{- with $row.platforms }}{{ if eq .windows "tentative" }}
   <p class="gb-platform">Windows notes are tentative — if you walk this on Windows, <a href="{{ site.Params.BookRepo }}/issues/new?title={{ printf "[%s] Windows note" $row.id | urlquery }}">tell us what you found</a>.</p>
   {{- end }}{{ end }}
-  <p class="gb-feedback"><a href="{{ site.Params.BookRepo }}/issues/new?title={{ printf "[%s] This doesn't match what I see" $row.id | urlquery }}&body={{ printf "Step: %s#step-%s%%0A%%0AWhat I see instead:%%0A" .Page.Permalink $row.id }}">This doesn't match what I see →</a></p>
+  <p class="gb-feedback"><a href="{{ site.Params.BookRepo }}/issues/new?title={{ printf "[%s] This doesn't match what I see" $row.id | urlquery }}&body={{ printf "Step: %s#step-%s\n\nWhat I see instead:\n" .Page.Permalink $row.id | urlquery }}">This doesn't match what I see →</a></p>
 </div>

@@ -63,7 +63,7 @@ steps:
     verify: "your collaborator answered with *QST cards*, not code — each carrying options, a recommendation, and an *If wrong:* line"
     requires: [recruit]
   - id: first-answers
-    title: "Your first answers, four ways"
+    title: "Your first answers"
     minutes: 12
     context: >-
       Each card has a recommendation: their pick, the reasoning, a
@@ -90,14 +90,27 @@ steps:
       The first change *after* a build is where vibe coding usually
       starts shedding context. Not here — one more decision, on the
       record.
-    verify: "the tweak is live, and `grep -rn '^### QST' docs/adr/` shows your decisions accumulating — that grep is the whole retrieval system, forever"
+    verify: "the tweak is live, and `grep -rn '^### QST' docs/adr/` shows your decisions accumulating — that grep is retrieval enough for this first walk"
     requires: [ship-pages]
+  - id: cold-resume
+    title: "The capstone: can a stranger recover the why?"
+    minutes: 8
+    context: >-
+      Chapter 1 promised that the *why* survives the conversation that
+      produced it. That's a testable claim, and you're about to test it
+      — on a session with no memory of anything you did today.
+    verify: "the fresh session points to the file and section for a decision, a rejected alternative, the why, and the reopen condition — or honestly names what's missing instead of inventing it"
+    requires: [tweaks]
   - id: terminals
-    title: "The crew, one click"
+    title: "The crew, one click (optional extension)"
     minutes: 4
+    optional: true
     context: >-
       Real projects grow more than one collaborator session, and
-      reopening them one by one gets old. The template ships the cure.
+      reopening them one by one gets old. The template ships the cure —
+      but its full machinery (tmux, the pneumatic launcher) is beyond
+      this guide's installed path, so this is an extension to do with
+      your collaborator, not a required step.
     verify: "Terminals: Run opens your collaborator's terminal(s) automatically"
     requires: [recruit]
 ---
@@ -152,7 +165,11 @@ guide uses below, but it's yours:
 
 {{< var-input project-name "Your repository name" "wordle-with-records" >}}
 
-→ **Private** is fine → Create.
+→ **Public** (the free-hosting path: GitHub Pages on a free account
+needs a public repository — your code and records will be visible,
+which for this project is a feature; want private source anyway? The
+site step then needs a paid plan, or a different host — your call,
+made knowingly) → Create.
 
 <!-- screenshot: use-template-button -->
 {{< /step >}}
@@ -179,7 +196,9 @@ happen.
 {{< step recruit >}}
 In the VS Code terminal, run `claude`. First launch in a new folder
 asks setup questions — trust the folder (yes — it's your own
-repository), and project MCP servers (enable is fine).
+repository), and project MCP servers (**skip/decline for now**: the
+template's server wants Node, which this path doesn't install;
+nothing in this hour needs it).
 
 Then paste this — **the mission and the project together, one
 message** (edit the project half freely; it's yours):
@@ -216,9 +235,15 @@ this exact blurb — yours will differ, and should):
 >
 > **Recommendation**: **B.** *Rationale*: the project's own stated
 > constraint is *scoped CSS* — A quietly downgrades it from a language
-> feature to a promise. *Confidence*: 0.7. ***If wrong***: if the
-> Actions setup eats more than ~15 minutes, A ships tonight and B
-> becomes a recorded follow-up.
+> feature to a promise. *Confidence*: 0.7. ***If wrong***: if
+> deployment fights us past ~15 minutes, I pause and ask you whether
+> to relax scoped CSS, extend the budget, or pick another path — and
+> we record whichever trade-off you accept.
+
+Notice the *If wrong* doesn't quietly give away the thing the
+recommendation was protecting — it hands the trade-off back to the
+decider. If a falsifier ever relaxes your own requirement without
+asking you, send it back.
 
 Notice what that is: options you can weigh without leaving the block,
 a committed position, and the fact that would change it. Two or three
@@ -228,28 +253,40 @@ like it are now in your `docs/adr/` folder, waiting for you.
 {{< /step >}}
 
 {{< step first-answers >}}
-Answer each of your cards a different way, on purpose, to see that the
-record doesn't care where answers come from:
+**Pick one place to answer** — both read and write the same files,
+and seeing that is the lesson:
 
-1. **In the extension**: click the ADRs-for-AI icon in VS Code's
+1. **The extension**: click the ADRs-for-AI icon in VS Code's
    sidebar — open questions appear as a list; open one, read the
    recommendation, type your answer in the ANS box. ("A, agreed." is a
    complete answer when you agree — the *why* is already on the page.
    Diverging? Then say why; the slot has no size limit.)
-2. **Manually**: open the ADR file itself, find the next card's
-   `**ANS:**` line (the `[Fill this in]` placeholder marks the blank),
-   and type your answer right in the file. Save. That's it — the
-   extension and the model read the same file you just edited; there
-   is no database, and now you know it.
-3. **From your phone**: install the [GitHub mobile app](https://github.com/mobile),
-   open your repository → the ADR file → edit → answer the third card
-   → commit from your thumbs. Decisions don't wait for your desk.
-   *(Pull before the next step: `git pull` in the terminal.)*
-4. **Notify the seat**: back in the terminal, tell your collaborator:
-   *"I've answered everything — pull, read, and proceed."* Watch what
-   happens: they read your answers *from the files*, update the
-   records, and start building — no re-explaining, no "as I mentioned
-   above." The record carried it.
+2. **The file itself**: open the ADR, find each card's `**ANS:**` line
+   (the `[Fill this in]` placeholder marks the blank), type your
+   answer, save. There is no database — and now you know it.
+
+**Then notify**: in the terminal, tell your collaborator *"I've
+answered everything — read and proceed."* They read your answers
+*from the files*, update the records, and start building — no
+re-explaining. The record carried it.
+
+{{< expand "Optional, after: answer from your phone — the full cycle" >}}
+Decisions don't have to wait for your desk, but crossing devices means
+meeting git's three distinct moves, in order:
+
+1. **Publish what's local**: in the terminal — `git add -A && git
+   commit -m "answers" && git push`. *Saving* a file changed your
+   disk; *committing* recorded it in history; *pushing* put it on
+   GitHub where your phone can see it. Three different things.
+2. On the [GitHub mobile app](https://github.com/mobile): your
+   repository → the ADR file → edit → change or extend one answer →
+   commit from your thumbs.
+3. **Pull before touching anything locally**: `git pull`. Your phone's
+   commit now exists on your machine too. Skipping this is how two
+   versions of the truth get born.
+
+(We tested this on iOS; Android should match — tell us.)
+{{< /expand >}}
 
 <!-- screenshot: extension-qst-view -->
 {{< /step >}}
@@ -273,6 +310,27 @@ tweaks won't need a card; one of yours probably will. Answer it
 whichever of the four ways you liked best.
 {{< /step >}}
 
+{{< step cold-resume >}}
+Your collaborator knows why everything is the way it is — but they
+were *there*. The records only matter if someone who wasn't can
+recover the reasoning. Test it:
+
+Open a **new terminal** in the project and start a **fresh** session
+(`claude` — a new session has no memory of today). Paste:
+
+```text
+Read the project records in docs/adr/. Identify one decision we made, an alternative we rejected, why we rejected it, and what would make us reconsider. Point to the file and section for each. If something is missing from the records, say so rather than reconstructing it.
+```
+
+Compare the answer with what actually happened. Success is **supported
+reasoning and honest gaps** — not a plausible story. Then try the
+second half: name one changed constraint (say, "word packs per course
+week are now wanted") and ask whether any recorded decision should
+reopen. Watch the *If wrong* lines earn their keep.
+
+That — not trust, not vibes — is what the records were for.
+{{< /step >}}
+
 {{< step terminals >}}
 In the project terminal:
 
@@ -291,7 +349,8 @@ is back — reading the records you both wrote today, remembering *why*
 everything is the way it is.
 
 <!-- screenshot: terminals-run -->
+{{< /step >}}
 
 That's the guide — and you're among the first to walk it: your stall
-points are worth more to us than your successes.
-{{< /step >}}
+points are worth more to us than your successes. The
+[two-minute debrief](../04-tell-us/) closes the loop.

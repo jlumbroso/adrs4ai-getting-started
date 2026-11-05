@@ -45,10 +45,9 @@ steps:
       because the system uses it. The real problem asdf solves is
       *versions over time*: projects pin different Python (and Node, and
       more) versions, and asdf lets any number of them cohabit, switching
-      per-project automatically. (Honest note: nothing in *this guide*
-      invokes Python — this step provisions the rest of the course,
-      where your harness will want it. If you're racing the clock, it
-      can wait.)
+      per-project automatically. (This guide's required path doesn't run
+      Python; the optional crew-relaunch extension and the rest of the
+      course do. If you're racing the clock, it can wait.)
     verify: "`python --version` says 3.12.4"
     requires: [setup-homebrew]
     platforms: { macos: full, windows: tentative }
@@ -80,9 +79,10 @@ steps:
       `gh` is GitHub's own command-line client. Chapter 3 uses it to
       create your project from a template and connect it to your account
       without ever leaving the terminal — and once you're logged in with
-      it, every model collaborator you work with can use it too (creating
-      repos, opening issues) *on your behalf, with your consent per
-      action*. `just` is a tiny command runner the template relies on —
+      it, your model collaborators can use it too (creating repos,
+      opening issues) *as you*. Which of their commands need your ok is
+      set by your project's permission settings — you'll see (and own)
+      that file in the template. `just` is a tiny command runner the template relies on —
       a menu of named recipes per project; you'll run your first one at
       the end of Chapter 3.
     verify: "`gh auth status` shows your username, logged in; `just --version` answers"
@@ -104,12 +104,15 @@ steps:
 
 # Chapter 2 — Setting up your tools
 
-*macOS path. Windows readers: tentative notes are marked — we haven't
-walked them end-to-end yet, and we'd genuinely value your corrections
+*This is the **macOS course path**: written for CIS 7000-008, where
+every walker has an Anthropic account with Claude Code access (Claude
+Code is not on the free plan — outside readers, check that first).
+Windows notes are partial orientation, not a tested walkthrough —
+corrections genuinely wanted
 ([open an issue](https://github.com/jlumbroso/adrs4ai-getting-started/issues)
-with the step ID). Budget 30–45 minutes, mostly waiting on installers.
-This chapter opens by installing the helper — so every later step has
-someone to ask.*
+with the step ID). Budget ~40 minutes of steps; installs, logins, and
+any debugging are extra. The chapter opens by installing the helper —
+so every later step has someone to ask.*
 
 Each tool comes with its *why* — "install these five things" with no
 reasons is the style this methodology replaces.
@@ -134,9 +137,10 @@ Five facts, enough to not be lost:
 3. **Passwords type invisibly.** When something asks for your Mac
    password, nothing appears as you type — no dots, nothing. That's a
    security feature, not a freeze. Type it and press Enter.
-4. **ctrl-C abandons a running command** and gives the prompt back.
-   It's the universal "never mind" — you cannot break anything with it
-   that matters.
+4. **ctrl-C stops the current command** and gives the prompt back.
+   It's the universal "never mind" — though it can leave a job
+   half-done, so keep the output on screen and ask your guide before
+   retrying anything that was mid-install.
 5. **"Open a new terminal" is a real instruction** (⌘-N). A terminal
    reads its configuration once, at birth — so a tool installed a
    minute ago often exists only in windows opened *after* the install.
@@ -218,11 +222,13 @@ you'll install later this chapter), and **Claude Code on the web**
 (sessions on cloud machines, from a browser). None of them is wrong.
 This guide teaches the terminal, for three reasons:
 
-1. **Transparency.** Everything they do is a printed line — the log
-   *is* the conversation. You consent to actions in plain sight.
+1. **Inspectability.** Commands, outputs, and where-you-are print as
+   lines you can read, copy, and question. (No surface shows you
+   everything a model does or understands — but this one hides the
+   least.)
 2. **What you watch, you inherit.** Every command they run is one you
-   could run yourself; the friendlier surfaces wrap — which means
-   hide — exactly the part you're here to learn.
+   could run yourself; the friendlier surfaces wrap the part you're
+   here to learn.
 3. **The collaborator lives in your project.** A session starts inside
    a folder, and that folder — files, decision records — is the memory
    you share. The terminal is where that's visible, not a metaphor
@@ -281,13 +287,13 @@ those too.
 {{< step setup-python-asdf >}}
 ```bash
 brew install asdf
-echo '. "$(brew --prefix asdf)/libexec/asdf.sh"' >> ~/.zshrc
+echo 'export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"' >> ~/.zshrc
 ```
 
 {{< expand "What each word does" >}}
 - `brew install asdf` — your new package manager's first job.
-- `echo '…'` — print a line of text; here, the one-line instruction that loads asdf.
-- `>> ~/.zshrc` — *append* it to your shell's startup file (`~` is your home folder; `.zshrc` runs every time a terminal opens). The `>` form would overwrite the file — `>>` adds to the end, which is why the guide uses it.
+- `echo '…' >> ~/.zshrc` — *append* one line to your shell's startup file (`~` is your home folder; `.zshrc` runs every time a terminal opens; `>>` adds to the end — a single `>` would overwrite the whole file).
+- the line itself — puts asdf's *shims* folder on your `PATH`: thin stand-ins for each tool that route `python` (etc.) to whichever version the current project wants. This is current asdf (v0.16+); older guides show a `. …/asdf.sh` line that no longer applies.
 {{< /expand >}}
 
 Open a new terminal, then:
@@ -295,21 +301,23 @@ Open a new terminal, then:
 ```bash
 asdf plugin add python
 asdf install python 3.12.4
-asdf global python 3.12.4
+asdf set -u python 3.12.4
 ```
 
 {{< expand "What each word does" >}}
 - `asdf plugin add python` — teach asdf about a language: a *plugin* is asdf's adapter for one tool family (here, Python).
-- `asdf install python 3.12.4` — download and build that exact version; it lives alongside any others, not instead of them.
-- `asdf global python 3.12.4` — make it the default everywhere (*global*), until a project folder says otherwise with a local pin.
+- `asdf install python 3.12.4` — download and build that exact version; it lives alongside any others, not instead of them. (3.12.4 is the course pin — same version the course's own machines run, so your errors match our fixes.)
+- `asdf set -u python 3.12.4` — make it your default everywhere (`-u` writes it to your home folder's `.tool-versions`), until a project folder pins its own. Older guides say `asdf global` — same idea, retired command.
 {{< /expand >}}
 
 (The install compiles; a few minutes of scrolling text is expected —
 fact 2 from the terminal step applies.)
 
-> **[Windows — tentative]** asdf is Unix-only; the spiritually closest
-> path is `winget install Python.Python.3.12` — or WSL2, where
-> everything in this guide works as written.
+> **[Windows — partial orientation, untested]** asdf is Unix-only; the
+> closest path is `winget install Python.Python.3.12`. WSL2 gets you a
+> Linux shell where the *shape* of this guide applies, but the
+> Mac-specific lines (brew casks, shortcuts) do not transfer as
+> written.
 {{< /step >}}
 
 {{< step setup-vscode >}}

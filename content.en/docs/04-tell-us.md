@@ -39,7 +39,9 @@ Then get it to us, **either way is complete**:
   link. Keeping your repo to yourself is a fine choice and costs
   nothing.
 
-No GitHub account (you stopped before Chapter 3)? Email works:
-the course announcement's reply button, three lines — where you
-stopped, what it said, what you expected.
+One honesty note: a walk-report issue is **public** (it lives on the
+guide's repository). Prefer private? Email works and is equal: course
+walkers, reply to the announcement; anyone else, the maintainer's
+email is on [their GitHub profile](https://github.com/jlumbroso) —
+three lines: where you stopped, what it said, what you expected.
 {{< /step >}}
