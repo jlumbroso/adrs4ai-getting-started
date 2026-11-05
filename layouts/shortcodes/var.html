@@ -1,0 +1,4 @@
+{{- /* Inline variable reference. Renders a plain-text sentinel ⟨name⟩ —
+safe inside code fences (no HTML) — which static/js/variables.js wraps
+and substitutes from localStorage. Identifiers only, never secrets. */ -}}
+{{- $name := .Get 0 -}}⟨{{ $name }}⟩

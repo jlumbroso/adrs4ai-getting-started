@@ -1,0 +1,14 @@
+{{- /* Variable input: label, localStorage-backed field, optional default.
+Usage: {{< var-input github-username "Your GitHub username" ["default"] >}}
+Values are identifiers only, never secrets (see /docs/variables/). */ -}}
+{{- $name := .Get 0 -}}
+{{- $label := .Get 1 -}}
+{{- $default := "" -}}{{- with .Get 2 }}{{ $default = . }}{{ end -}}
+<div class="gb-var-input">
+  <label><span class="gb-var-label">{{ $label }}</span>
+    <input type="text" autocomplete="off" spellcheck="false"
+           data-gb-var="{{ $name }}"
+           placeholder="{{ with $default }}{{ . }}{{ else }}⟨{{ $name }}⟩{{ end }}">
+  </label>
+</div>
+<script src="{{ "js/variables.js" | relURL }}" defer></script>
