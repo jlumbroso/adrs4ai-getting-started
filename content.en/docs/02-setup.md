@@ -77,6 +77,8 @@ steps:
       sessions in one click (you'll meet that at the end of Chapter 3).
     verify: "⌘-shift-X → \"Installed\" lists both"
     requires: [setup-vscode]
+    media:
+      screenshot: /shots/extension-panel.png
 ---
 
 # Chapter 2 — Setting up your tools
