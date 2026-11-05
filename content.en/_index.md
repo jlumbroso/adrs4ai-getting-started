@@ -25,7 +25,9 @@ that prerequisite first.*
    template → recruit → first decisions → live on GitHub Pages → the
    cold-resumption capstone. (~60 min of steps)
 
-**How to read this guide** — four spellings worth knowing up front:
+## How to read this guide {#how-to-read}
+
+Two terms and three bracket species worth knowing up front:
 an **ADR** (*Architectural Deliberation Record* — the template's own
 expansion, with the industry's "Architecture Decision Record" as its
 ancestor) is one file of recorded decisions in `docs/adr/`; a
@@ -40,6 +42,12 @@ Every step says how to verify it worked, your checkmarks persist in
 your browser (they never leave it), and the
 **[All tasks]({{< relref "/tasks" >}})** page shows the whole trail in
 one place.
+
+*Changelog — 2026-11-05: revised after three external reviews.
+Alacritty step removed (its install is disabled upstream);
+crew-relaunch step removed (template recipe broken at its HEAD, since
+fixed upstream — returns after re-testing); the example card repaired
+to the method's own spec; the capstone gained its rubric.*
 
 > **You're among the first to walk this guide.** Where it doesn't
 > match what you see, that's the guide failing you, not the reverse —

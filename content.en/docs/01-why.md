@@ -26,6 +26,13 @@ Claude Code, a VS Code extension that turns the records into something
 you can read and answer like mail, templates that give a new project
 the right shape from minute one.
 
+The record does two things, and the walk teaches both: **the why
+survives** (you can resume — next month, next collaborator) and **the
+why is checkable before you agree** (you can catch — that's what the
+*If wrong* line on every recommendation is for). It does not make
+anyone remember, and it does not make you understand code you haven't
+read.
+
 **This guide sets you up with your first project.** By the end you'll
 have: a working development environment (Chapter 2), and a real
 project — a small game, live on the internet — built *with* a model

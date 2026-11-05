@@ -85,8 +85,8 @@ steps:
       naming what would change their mind. That last line is the heart
       of the method: a position stated so it can be *checked*, not
       performed so it can be believed. You are the decider; the cards
-      protect your attention — because the reasoning is on the page,
-      agreeing costs you two words.
+      protect your attention — agreeing can be short, but the reason
+      should be yours.
     verify: "every QST shows answered (the extension's list drains to zero), and your collaborator is building"
     requires: [project-blurb, setup-extensions]
     media:
@@ -117,12 +117,8 @@ steps:
       Chapter 1 promised that the *why* survives the conversation that
       produced it. That's a testable claim, and you're about to test it
       — on a session with no memory of anything you did today.
-    verify: "the cited passages support the reconstruction — or the model names a gap, in which case the test worked: repair the record and repeat"
+    verify: "you graded the reconstruction against your paper key — Pass, or Partial and re-ran after the repair; a Fail is a result too: report it"
     requires: [first-answers]
-    media:
-      screenshot: shots/terminals-run.png
-      alt: "The VS Code command palette showing the Terminals: Run command"
-      caption: "⌘-shift-P → **Terminals: Run**." 
 ---
 
 # Chapter 3 — Your first project
@@ -154,7 +150,9 @@ If you skipped the login during Chapter 2's *Command-line tools* step
 gh auth login
 ```
 
-Pick **GitHub.com** → **HTTPS** → **login with a web browser**, and
+Answer the four prompts as in Chapter 2's *Command-line tools* step:
+GitHub.com · login with a web browser · HTTPS · **Y** to
+"Authenticate Git" (that last one makes `git push` work). Then
 follow the code it shows you.
 
 {{< expand "What each word does" >}}
@@ -205,19 +203,18 @@ happen.
 {{< step recruit >}}
 In the VS Code terminal, run `claude`. First launch in a new folder
 asks whether you trust the folder — yes, it's your own repository.
-Then it asks whether to enable the project's `adrs4ai` MCP server —
-your call, and either answer is fine: the server wants Node, which
-arrives in *Ship it*, so enabling it now just leaves it pending until
-then. Nothing in this hour uses it. (Four different things, for the
-record: the VS Code *extension* displays records; the Claude
-*plugin/skill* teaches authoring; the MCP *server* provides tools;
-*Node* runs JavaScript tooling. Only the last two wait for Ship it.)
+You may or may not then be asked about the project's `adrs4ai` MCP
+server; **if asked, say yes** — a decline is remembered and has to be
+undone later. The server needs Node, which arrives in *Ship it*, so
+until then `/mcp` lists it as **failed** — expected, not a problem;
+nothing today uses it. After Node is installed, the next launch
+connects it.
 
 Then paste this — **the mission and the project together, one
 message** (edit the project half freely; it's yours):
 
 ```text
-Hello — I have a mission for you: my first deliberatively-built project. Read CLAUDE.md and tell me if you accept — any pushback welcome. If you accept: configure the template (the ⟦⟧ placeholders and whatever else it asks — one of them is MY name for the records), introduce yourself, and then we start on this — using the template's adr-authoring skill when you write the cards:
+Hello — I have a mission for you: my first deliberatively-built project. Read CLAUDE.md and tell me if you accept — any pushback welcome. If you accept: configure the template (the ⟦⟧ placeholders and whatever else it asks — one of them is MY name for the records: put it in CLAUDE.md's Human line AND in .vscode/settings.json as adrManager.humanName, replacing anything already there), introduce yourself, and then we start on this — using the template's adr-authoring skill when you write the cards:
 
 The project is a Wordle variant — guess the word, colored feedback per letter — with a twist: the answers are computer science words (ARRAY, STACK, QUEUE, CACHE, TOKEN…). I want it hosted free on GitHub Pages, built with Vue using scoped CSS so styles stay component-local. Before you write any code: what are the 2–3 decisions we should settle first? Put them to me as proper QST cards in the record — with your recommendation on each.
 ```
@@ -226,28 +223,33 @@ They'll read, decide, name themselves, fill the template's
 placeholders (asking you for anything that's genuinely yours to
 answer), commit the configuration — and then turn to the project.
 
+**The rule changes here.** In Chapter 2 you typed and they diagnosed.
+From now on they also type — editing files and running commands in
+your repository — and their commits carry your GitHub name. That is
+attribution, not a transfer of responsibility: the repository, every
+commit, and the live site are yours to answer for, which is why some
+commands (the first is `git push`, in *Ship it*) stop and ask you
+before they run.
+
 {{< expand "What might happen instead — all normal" >}}
 - **They ask questions before accepting** — answer them; pushback is
   the method working.
 - **They ask you to run `/rename` or `/color`** — type those at the
-  Claude prompt; they're renaming their own seat.
+  Claude prompt; they're renaming themselves.
+- **They try `npx` and it isn't found** — same missing Node as the
+  MCP server; they'll fall back to reading the files directly.
 - **They decline** — rare; ask why, start a fresh session, and tell
   us in the debrief.
-- **Claude asks permission before a command** — read it. Inside your
-  own project, Allow is the normal answer; `git push` will *always*
-  ask — that gate is yours, on purpose.
-- **A rule quietly changed here**: in Chapter 2 you typed and they
-  diagnosed. From recruitment on, they type too — in your repo,
-  under your name. The name attributes; it does not take
-  responsibility. The repo, the commits, and the site are yours.
 {{< /expand >}}
 
 <!-- screenshot: recruit-consent -->
 {{< /step >}}
 
 {{< step project-blurb >}}
-What comes back will look something like this (a real emission from
-this exact blurb — yours will differ, and should):
+What comes back will look something like this (a real reply to
+exactly this paste — yours will differ, and should). If code came
+back instead: *"Stop — no code yet. Put the 2–3 decisions into
+docs/adr/ as question cards and tell me the file name."*
 
 > ### QST-VUE-SHAPE: single-file Vue from a CDN, or a Vite build with an Actions deploy?
 > - Status: unanswered
@@ -271,22 +273,23 @@ this exact blurb — yours will differ, and should):
 > wrong***: if Pages can't deploy from Actions on this account, or
 > the app won't serve under the repository path once `base` is set,
 > this flips to A — and I bring the scoped-CSS trade-off back to you
-> rather than relaxing it. (Separate thing, a *budget*: if we're past
-> ~15 minutes of deploy trouble, I pause and ask.)
+> rather than relaxing it.
 >
 > **ANS:** (by you)
 > [Fill this in]
 
+(Below the card they also set a *budget* — past ~15 minutes of deploy
+trouble, pause and ask — a price, kept separate from the falsifier,
+which is a fact.)
+
 Notice the *If wrong* doesn't quietly give away the thing the
 recommendation was protecting — it hands the trade-off back to the
 decider. If a falsifier ever relaxes your own requirement without
-asking you, send it back. And that *0.7 — because* is an action band,
-not decoration: at 0.7 the call is **yours** — read the options,
-don't just agree.
-
-(If code came back instead: *"Stop — no code yet. Put the 2–3
-decisions into docs/adr/ as question cards and tell me the file
-name."*)
+asking you, send it back. And the confidence number carries an
+action: above 0.9 they'd act without you; **0.6–0.85 means the call
+is yours** — read the options, don't just agree; 0.55 and below
+means find another mind. (Each card announces itself with a
+`### QST` heading — that's what the grep later looks for.)
 
 Notice what that is: options you can weigh without leaving the block,
 a committed position, and the fact that would change it. Two or three
@@ -299,21 +302,35 @@ like it are now in your `docs/adr/` folder, waiting for you.
 and seeing that is the lesson:
 
 1. **The extension**: click the ADRs-for-AI icon in VS Code's
-   sidebar — open questions appear as a list; open one, check the
-   **"Answering as"** field shows *your* name (not the template
-   author's), read the recommendation, and type your answer in the
-   ANS box. Three honest shapes, all complete: **agree with your own
-   reason** ("B — the scoped-CSS argument holds"); **override with a
-   reason**; or **explicit deferral** ("I can't evaluate this one —
-   going with your recommendation; reopen if the deploy fails").
-   Deferring and agreeing are different acts; the record should know
-   which happened. And before answering any card, three send-backs:
-   no *because* after the confidence, no byline, or an *If wrong*
-   that's just a cost — send it back. On one card this walk, push
-   back on purpose: ask what would make them choose the other option.
-2. **The file itself**: open the ADR, find each card's `**ANS:**` line
-   (the `[Fill this in]` placeholder marks the blank), type your
-   answer, save. There is no database — and now you know it.
+   sidebar — open questions appear as a list; open one, read the
+   recommendation, type your answer, submit.
+2. **The file itself**: `ls docs/adr/` — the newest numbered file is
+   theirs; open it, find each card's `**ANS:**` line (the
+   `[Fill this in]` placeholder marks the blank), type your answer,
+   save. There is no database — and now you know it.
+
+**What to write** — three honest shapes, all complete, whichever
+route: **agree, with a reason only you could supply** ("B — I'd
+rather learn the standard path, even if it costs a workflow file");
+**override, with a reason**; or **adopt, unevaluated**, marked so the
+record knows: `Adopted, unevaluated: B. Reopen if the deploy fails.`
+(Adopting and agreeing are different acts — and this marker is
+grep-able later, which is how you'll count the decisions you never
+actually weighed. It is not the template's `deferred` status, which
+parks a question open.)
+
+**Before you answer, three reasons to send a card back**: no
+*because* after the confidence; no byline; an *If wrong* that's just
+a cost. Send it back — "what would change your mind?"
+
+**Once this walk, on purpose**: tell them one constraint they
+couldn't know — your time, your machine, what you want to learn — and
+ask whether the recommendation survives it.
+
+**After your first answer, check the byline**: open the file — the
+`**ANS:** (by …)` line must carry *your* name. If it shows someone
+else's, have your collaborator fix `adrManager.humanName` in
+`.vscode/settings.json`, and answer again.
 
 **Then notify**: in the terminal, tell your collaborator *"I've
 answered everything — read and proceed."* They read your answers
@@ -406,14 +423,17 @@ Your collaborator knows why everything is the way it is — but they
 were *there*. The records only matter if someone who wasn't can
 recover the reasoning. Test it:
 
-Open a **new terminal** in the project and start a session with
-auto-memory off for this one launch (a fresh conversation isn't
-necessarily fresh *evidence* — Claude Code's memory persists across
-sessions by default, and this test is about the records, not the
-memory):
+First, **on paper** (the cold session must never see this): which
+decision, which rejected alternative, and which reopening condition
+you expect a stranger to find. That's your answer key.
+
+Then open a **new terminal** in the project and start a session with
+auto-memory off and the boundary enforced by the harness, not by
+politeness (a fresh conversation isn't necessarily fresh *evidence* —
+memory persists across sessions by default):
 
 ```bash
-CLAUDE_CODE_DISABLE_AUTO_MEMORY=1 claude
+CLAUDE_CODE_DISABLE_AUTO_MEMORY=1 claude --disallowedTools "Bash(git log *)" "Bash(git show *)" "Edit" "Write"
 ```
 
 Paste:
@@ -422,21 +442,21 @@ Paste:
 This is a read-only recovery test. Use CLAUDE.md for project instructions and docs/adr/ as evidence — but ignore docs/adr/templates/, and do not run git log, consult previous chat transcripts, or external memory, and do not modify files. Identify one decision we made, a rejected alternative, the recorded rationale, and a reopening condition. Cite the file and section for each; distinguish quotation from inference, and name anything missing rather than reconstructing it.
 ```
 
-Before pasting: write down, on paper, which decision, which rejected
-alternative, and which reopening condition you expect them to find —
-that's your answer key. Then grade with this rubric, alone:
+Grade against your paper key, two things separately:
 
-- **Pass** — every citation opens to a real file and section, and
-  every quoted passage is there verbatim (`grep` a phrase to check).
-- **Partial** — they name a gap honestly. The test worked: the
-  record needs repair; fix it and run again.
-- **Fail** — a fluent reconstruction whose citations don't hold.
-  That's the failure Chapter 1 warned about — and exactly the thing
-  to report in the debrief.
+- **The record**: *found* (they located what you predicted) or *gap*
+  (something you knew isn't in the files — repair it, rerun; the
+  repair is the deliverable). If they found a decision you'd
+  *forgotten*, say so in the debrief — that's either the method
+  paying or a leak, and we want to know which.
+- **The reader**: *honest* (every citation opens to a real file and
+  section, quotes verbatim — `grep` a phrase to check; inference
+  labeled as inference) or *confabulated* (a quote that isn't there —
+  a model failure, not a record failure; rerun it, and report it).
 
-(One boundary for the prompt's sake: the test excludes `git log` and
-`docs/adr/templates/` — commit messages and specimen files would let
-a sharp model cheat.) Then try the
+(The exclusions — `git log`, `docs/adr/templates/` — are in the
+command and the prompt because commit messages and specimen files
+carry answers this test must not borrow.) Then try the
 second half: name one changed constraint (say, "word packs per course
 week are now wanted") and ask whether any recorded decision should
 reopen. Watch the *If wrong* lines earn their keep.

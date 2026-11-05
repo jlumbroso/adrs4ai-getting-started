@@ -56,8 +56,8 @@ steps:
       *versions over time*: projects pin different Python (and Node, and
       more) versions, and asdf lets any number of them cohabit, switching
       per-project automatically. (This guide's required path doesn't run
-      Python; the optional crew-relaunch extension and the rest of the
-      course do. If you're racing the clock, it can wait.)
+      Python; the rest of the course does. If you're racing the
+      clock, it can wait.)
     verify: "`python --version` says 3.12.4"
     requires: [setup-homebrew]
     platforms: { macos: full, windows: tentative }
@@ -109,8 +109,10 @@ steps:
 every walker has an Anthropic account with Claude Code access (Claude
 Code is not on the free plan — outside readers, check that first).
 Hardware: an **Apple Silicon Mac (M1 or later) on macOS 15+** —
- → About This Mac to check; Homebrew dropped Intel Macs in 2026,
-and the Intel fallback is in the Homebrew step.
+Apple menu → About This Mac to check; Homebrew dropped Intel Macs in
+2026, and the Intel fallback is in the Homebrew step. The grey word
+after each step's title is its **step ID** — quote it when you
+report a mismatch.
 Windows notes are partial orientation, not a tested walkthrough —
 corrections genuinely wanted
 ([open an issue](https://github.com/jlumbroso/adrs4ai-getting-started/issues)
@@ -282,8 +284,9 @@ Paste into the terminal:
 It will ask for your Mac password (typing shows nothing — that's
 normal) and may install Apple's Command Line Tools first — that
 download alone can take 10–20 minutes; quiet means working. At the
-end, **paste every line it prints under "Next steps"** (usually
-three).
+end, **paste the indented commands under "Next steps"** — usually two
+`echo` and one `eval` — but not the two bullet lines beneath them
+(those are reading suggestions, not commands).
 
 > **[Intel Mac]** Homebrew now supports Apple Silicon only. The
 > no-Homebrew path: Claude Code's installer works as-is; VS Code from
@@ -355,8 +358,8 @@ GitHub.com · **How would you like to authenticate?** → login with a
 web browser · **Preferred protocol** → HTTPS · **Authenticate Git
 with your GitHub credentials?** → **Y** (this last one is what makes
 `git push` work later — don't skip it). Then follow the code it gives
-you. (No GitHub account yet? Chapter 3 step P1 covers signing
-up — do that first, then come back for `gh auth login`.)
+you. (No GitHub account yet? Chapter 3's *A GitHub account* step covers
+signing up — do that first, then come back for `gh auth login`.)
 {{< /step >}}
 
 {{< step setup-extensions >}}
@@ -369,5 +372,8 @@ In VS Code, ⌘-shift-X, search and install:
 
 <!-- screenshot: extension-panel -->
 
-Environment complete. Chapter 3 is where it becomes a project.
+Environment complete for this guide's path (Node arrives in Chapter
+3's *Ship it*, by design — the install follows your decision there).
+[Chapter 3]({{< relref "/docs/03-first-project" >}}) is where it
+becomes a project.
 {{< /step >}}

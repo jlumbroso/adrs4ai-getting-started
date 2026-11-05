@@ -144,3 +144,16 @@ article pre code > span { display: block; }
   font-weight: 400;
   background: none;
 }
+
+/* R2: theme's .markdown code beats .gb-step-id — win specificity */
+.markdown h2 code.gb-step-id {
+  font-size: 0.72rem;
+  background: none;
+  padding: 0;
+  white-space: nowrap;
+  opacity: 0.7;
+}
+.gb-step-head { align-items: baseline; }
+/* N8: no dark theme exists — keep native controls light */
+:root { color-scheme: light; }
+.gb-details summary { line-height: 1.3; }
