@@ -10,6 +10,10 @@ steps:
       a few steps) its live website all live. If you already have an
       account, enter your username below and skip to P2.
     verify: "you can log in at github.com, and your username is saved below (it personalizes the rest of this guide)"
+    media:
+      screenshot: shots/gh-signup.png
+      alt: "GitHub's signup form with email, password, and username fields"
+      caption: "The signup form (in a private browser window — what a new account sees)." 
   - id: gh-login
     title: "Log the tools in"
     minutes: 2
@@ -31,6 +35,8 @@ steps:
     requires: [gh-signup]
     media:
       screenshot: shots/use-template-button.png
+      alt: "The template repository page with the green Use this template button open, showing Create a new repository"
+      caption: "The green button, top right — and its menu's **Create a new repository**." 
   - id: clone-open
     title: "Clone it, open it"
     minutes: 3
@@ -41,9 +47,9 @@ steps:
     verify: "VS Code shows the project files on the left; `ls` in its terminal shows `CLAUDE.md`"
     requires: [use-template, setup-vscode]
     media:
-      screenshot: shots/project-files.png
-      alt: "VS Code Explorer showing CLAUDE.md, README.md, and docs/adr with example Markdown records"
-      caption: "A project is a folder: its files in Explorer, `CLAUDE.md` and `docs/adr/` included. (A small illustration workspace, not the full template clone.)" 
+      screenshot: shots/vscode-first-open.png
+      alt: "VS Code Explorer showing a project folder with CLAUDE.md and docs/adr containing decision records"
+      caption: "A project is a folder: Explorer shows `CLAUDE.md` and `docs/adr/`. (Demonstration records; your clone has the full template.)" 
   - id: recruit
     title: "Recruit your collaborator — mission and project, one paste"
     minutes: 12
@@ -67,9 +73,9 @@ steps:
     verify: "your collaborator answered with *QST cards*, not code — each carrying options, a recommendation, and an *If wrong:* line"
     requires: [recruit]
     media:
-      screenshot: shots/open-question-panel.png
-      alt: "ADRs for AI displaying a deployment question, its two alternatives, recommendation, confidence, If-wrong line, and a blank answer field"
-      caption: "The real extension rendering a question like yours: options, recommendation, confidence, the *If wrong* line — and the answer field waiting. (Illustration records, captured in the published extension.)" 
+      screenshot: shots/adr-qst-rendered.png
+      alt: "ADRs for AI rendering a deployment question: options A and B, the recommendation with confidence and If-wrong line, and a blank answer field"
+      caption: "A question like yours, rendered: options, the recommendation card with its *If wrong* line — and the answer field waiting. (Demonstration records in the real extension.)" 
   - id: first-answers
     title: "Your first answers"
     minutes: 12
@@ -125,6 +131,10 @@ steps:
       your collaborator, not a required step.
     verify: "Terminals: Run opens your collaborator's terminal(s) automatically"
     requires: [recruit]
+    media:
+      screenshot: shots/terminals-run.png
+      alt: "The VS Code command palette showing the Terminals: Run command"
+      caption: "⌘-shift-P → **Terminals: Run**." 
 ---
 
 # Chapter 3 — Your first project
@@ -145,7 +155,6 @@ personalizes every command below:
 
 {{< var-input github-username "Your GitHub username" >}}
 
-<!-- screenshot: gh-signup -->
 {{< /step >}}
 
 {{< step gh-login >}}
@@ -169,10 +178,8 @@ follow the code it shows you.
 {{< step use-template >}}
 Go to
 [github.com/ADRs4AI/human-ai-collaboration-template-A](https://github.com/ADRs4AI/human-ai-collaboration-template-A),
-press the green **Use this template** button (top right — it appears
-once you're logged in; the screenshot below shows the page before
-login, where the green **Code** button sits in its place) → *Create a
-new repository* → name it — `wordle-with-records` is the name this
+press the green **Use this template** button (top right) →
+**Create a new repository** → name it — `wordle-with-records` is the name this
 guide uses below, but it's yours:
 
 {{< var-input project-name "Your repository name" "wordle-with-records" >}}
@@ -358,7 +365,6 @@ launches at once. Tomorrow: `code .`, one Terminals: Run, and the crew
 is back — reading the records you both wrote today, remembering *why*
 everything is the way it is.
 
-<!-- screenshot: terminals-run -->
 {{< /step >}}
 
 That's the guide — and you're among the first to walk it: your stall

@@ -24,6 +24,10 @@ steps:
     verify: "`claude --version` answers, and `claude` opens a session that responds"
     requires: [setup-terminal]
     platforms: { macos: full, windows: tentative }
+    media:
+      screenshot: shots/claude-first-run.png
+      alt: "A terminal with a fresh Claude Code session open, showing the welcome prompt"
+      caption: "A fresh session's welcome — model, folder, an empty prompt waiting." 
   - id: setup-homebrew
     title: "Install Homebrew"
     minutes: 8
@@ -37,6 +41,10 @@ steps:
     verify: "open a NEW terminal window; `brew --version` answers"
     requires: [setup-terminal]
     platforms: { macos: full, windows: tentative }
+    media:
+      screenshot: shots/brew-done.png
+      alt: "A terminal where brew --version answers with a version number"
+      caption: "The verify state: `brew --version` answers." 
   - id: setup-python-asdf
     title: "Python, via asdf"
     minutes: 8
@@ -212,7 +220,6 @@ seconds, and Anthropic's
 [troubleshooting page](https://code.claude.com/docs/en/troubleshoot-install)
 matches errors to fixes.
 
-<!-- screenshot: claude-first-run -->
 {{< /step >}}
 
 ## Where Claude Code lives — and why this guide picks the terminal
@@ -279,8 +286,6 @@ It will ask for your Mac password (typing shows nothing — that's
 normal) and may install Apple's Command Line Tools first. At the end it
 prints two `echo … >> ~/.zprofile` lines under "Next steps" — paste
 those too.
-
-<!-- screenshot: brew-done -->
 
 > **[Windows — tentative]** The closest equivalent is `winget` (built
 > into Windows 11); `choco` also works. Tool names below mostly match.
