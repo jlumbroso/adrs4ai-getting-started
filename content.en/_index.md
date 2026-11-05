@@ -1,60 +1,31 @@
 ---
-title: Introduction
+title: Getting started
 type: docs
 ---
 
-# Acerbo datus maxime
+# ADRs for AI — getting started
 
-{{< columns >}}
-## Astris ipse furtiva
+A guided, checkable walkthrough that takes you from a bare machine to
+your first **deliberatively-built project**: a small game, live on the
+internet, built *with* a model collaborator — and the decisions behind
+it on the record, where you can find them again.
 
-Est in vagis et Pittheus tu arge accipiter regia iram vocatur nurus. Omnes ut
-olivae sensit **arma sorori** deducit, inesset **crudus**, ego vetuere aliis,
-modo arsit? Utinam rapta fiducia valuere litora _adicit cursu_, ad facies
+**Three chapters, one path:**
 
-<--->
+1. **[Why are we doing this?]({{< relref "/docs/01-why" >}})** — one
+   page, before any terminal.
+2. **[Setting up your tools]({{< relref "/docs/02-setup" >}})** —
+   Homebrew to Claude Code, each with its *why*. (~25–40 min)
+3. **[Your first project]({{< relref "/docs/03-first-project" >}})** —
+   template → recruit → first decisions → live on GitHub Pages.
+   (~45–60 min)
 
-## Suis quot vota
+Every step says how to verify it worked, your checkmarks persist in
+your browser (they never leave it), and the
+**[All tasks]({{< relref "/tasks" >}})** page shows the whole trail in
+one place.
 
-Ea _furtique_ risere fratres edidit terrae magis. Colla tam mihi tenebat:
-miseram excita suadent es pecudes iam. Concilio _quam_ velatus posset ait quod
-nunc! Fragosis suae dextra geruntur functus vulgata.
-{{< /columns >}}
-
-## Hugo Encrypt Example
-
-The password is `yourpassword`:
-
-This content is visible to anyone.
-
-{{% hugo-encrypt %}}
-
-This content will be encrypted by the global password!
-
-{{% /hugo-encrypt %}}
-
-This one is using a post-specific password `postspecificpassword`:
-
-{{% hugo-encrypt "postspecificpassword" %}}
-
-This content will be encrypted by a specific password!
-
-{{% /hugo-encrypt %}}
-
-## Tempora nisi nunc
-
-Lorem **markdownum** emicat gestu. Cannis sol pressit ducta. **Est** Idaei,
-tremens ausim se tutaeque, illi ulnis hausit, sed, lumina cutem. Quae avis
-sequens!
-
-    var panel = ram_design;
-    if (backup + system) {
-        file.readPoint = network_native;
-        sidebar_engine_device(cell_tftp_raster,
-                dual_login_paper.adf_vci.application_reader_design(
-                graphicsNvramCdma, lpi_footer_snmp, integer_model));
-    }
-
-## Locis suis novi cum suoque decidit eadem
-
-Idmoniae ripis, at aves, ali missa adest, ut _et autem_, et ab?
+> **You're among the first to walk this guide.** Where it doesn't
+> match what you see, that's the guide failing you, not the reverse —
+> every step carries a one-click *"this doesn't match what I see"*
+> link, and that feedback is part of the design.
