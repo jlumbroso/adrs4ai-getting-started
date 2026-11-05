@@ -26,6 +26,38 @@ h3 { font-weight: 600; }
 }
 
 /* Step card touches (pairs with the step shortcode's classes) */
+.gb-step-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+h2.gb-step-title {
+  font-size: 1.35rem;
+  margin: 0;
+  flex: 1;
+}
+.gb-minutes {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+.gb-step-toc .gb-minutes { font-size: 0.7rem; }
+
+/* Paste blocks and command blocks wrap at the container — a student
+   never copies a hard line break we inserted for layout. */
+.gb-how pre,
+.gb-how pre code {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.markdown details {
+  margin: 0.75rem 0;
+  li { margin-bottom: 0.35rem; }
+}
+
 .gb-context {
   font-size: 0.95rem;
   border-left-width: 3px;

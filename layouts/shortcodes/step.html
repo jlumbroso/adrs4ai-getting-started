@@ -11,7 +11,7 @@
 <div class="gb-step{{ if $row.destructive }} gb-destructive{{ end }}" id="step-{{ $row.id }}">
   <div class="gb-step-head">
     <input type="checkbox" class="gb-tick" data-step="{{ $row.id }}" aria-label="done: {{ $row.title }}">
-    <strong>{{ $row.title }}</strong>
+    <h2 class="gb-step-title" id="{{ $row.id }}">{{ $row.title }}{{ with $row.minutes }} <span class="gb-minutes">~{{ . }} min</span>{{ end }}</h2>
     <a class="gb-all-tasks" href="{{ "tasks/" | relURL }}#task-{{ $row.id }}" title="see all tasks">☰</a>
   </div>
   {{- with $row.requires }}

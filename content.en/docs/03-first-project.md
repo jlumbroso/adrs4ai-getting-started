@@ -29,6 +29,8 @@ steps:
       Template, not fork: your copy starts its own history, owned by you.
     verify: "your browser is on your new repository's page, and the file list shows `docs/`, `CLAUDE.md`, `justfile`"
     requires: [gh-signup]
+    media:
+      screenshot: /shots/use-template-button.png
   - id: clone-open
     title: "Clone it, open it"
     minutes: 3
@@ -132,19 +134,18 @@ Pick **GitHub.com** → **HTTPS** → **login with a web browser**, and
 follow the code it shows you.
 
 {{< expand "What each word does" >}}
-`gh` — GitHub's command-line client (installed in T5). ·
-`auth` — its authentication command group. ·
-`login` — start a new login: it opens github.com in your browser,
-shows you a one-time code to type there, and stores the resulting
-credential locally so every later `gh` command acts as
-{{< var github-username >}}.
+- `gh` — GitHub's command-line client (installed in T5).
+- `auth` — its authentication command group.
+- `login` — start a new login: it opens github.com in your browser, shows you a one-time code to type there, and stores the resulting credential locally so every later `gh` command acts as {{< var github-username >}}.
 {{< /expand >}}
 {{< /step >}}
 
 {{< step use-template >}}
 Go to
 [github.com/ADRs4AI/human-ai-collaboration-template-A](https://github.com/ADRs4AI/human-ai-collaboration-template-A),
-press the green **Use this template** button (top right) → *Create a
+press the green **Use this template** button (top right — it appears
+once you're logged in; the screenshot below shows the page before
+login, where the green **Code** button sits in its place) → *Create a
 new repository* → name it — `wordle-with-records` is the name this
 guide uses below, but it's yours:
 
@@ -163,14 +164,10 @@ code .
 ```
 
 {{< expand "What each word does" >}}
-`gh repo clone` — copy a repository from GitHub to this machine,
-wired up so pushes go back to it. ·
-`{{< var github-username >}}/{{< var project-name >}}` — whose
-repository, and which one. ·
-`cd {{< var project-name >}}` — move this terminal into the folder the
-clone just created (*change directory*). ·
-`code .` — open VS Code on the current folder (`.` means "right
-here"), so the editor sees the whole project.
+- `gh repo clone` — copy a repository from GitHub to this machine, wired up so pushes go back to it.
+- `{{< var github-username >}}/{{< var project-name >}}` — whose repository, and which one.
+- `cd {{< var project-name >}}` — move this terminal into the folder the clone just created (*change directory*).
+- `code .` — open VS Code on the current folder (`.` means "right here"), so the editor sees the whole project.
 {{< /expand >}}
 
 Then, inside VS Code: open the built-in terminal (ctrl-backtick). That
@@ -187,19 +184,9 @@ Then paste this — **the mission and the project together, one
 message** (edit the project half freely; it's yours):
 
 ```text
-Hello — I have a mission for you: my first deliberatively-built
-project. Read CLAUDE.md and tell me if you accept — any pushback
-welcome. If you accept: configure the template (the ⟦⟧ placeholders
-and whatever else it asks), introduce yourself, and then we start on
-this:
+Hello — I have a mission for you: my first deliberatively-built project. Read CLAUDE.md and tell me if you accept — any pushback welcome. If you accept: configure the template (the ⟦⟧ placeholders and whatever else it asks), introduce yourself, and then we start on this:
 
-The project is a Wordle variant — guess the word, colored feedback
-per letter — with a twist: the answers are computer science words
-(ARRAY, STACK, QUEUE, CACHE, TOKEN…). I want it hosted free on
-GitHub Pages, built with Vue using scoped CSS so styles stay
-component-local. Before you write any code: what are the 2–3
-decisions we should settle first? Put them to me as proper QST cards
-in the record — with your recommendation on each.
+The project is a Wordle variant — guess the word, colored feedback per letter — with a twist: the answers are computer science words (ARRAY, STACK, QUEUE, CACHE, TOKEN…). I want it hosted free on GitHub Pages, built with Vue using scoped CSS so styles stay component-local. Before you write any code: what are the 2–3 decisions we should settle first? Put them to me as proper QST cards in the record — with your recommendation on each.
 ```
 
 They'll read, decide, name themselves, fill the template's
@@ -294,11 +281,8 @@ just refresh-terminals
 ```
 
 {{< expand "What each word does" >}}
-`just` — a command runner the template ships configured; it reads the
-project's `justfile`, a menu of named recipes. ·
-`refresh-terminals` — the recipe that regenerates
-`.vscode/terminals.json`: the list of model-collaborator terminals
-this project knows how to reopen.
+- `just` — a command runner the template ships configured; it reads the project's `justfile`, a menu of named recipes.
+- `refresh-terminals` — the recipe that regenerates `.vscode/terminals.json`: the list of model-collaborator terminals this project knows how to reopen.
 {{< /expand >}}
 
 …then ⌘-shift-P → **Terminals: Run**. Every configured session

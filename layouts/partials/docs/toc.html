@@ -1,0 +1,16 @@
+{{ partial "docs/inject/toc-before" . }}
+{{- /* Step-aware ToC: pages built from front-matter step rows get their
+     ToC from the rows (shortcode-emitted headings never reach Hugo's
+     .TableOfContents); ordinary pages keep the default. */ -}}
+{{- with .Params.steps }}
+<nav id="TableOfContents" class="gb-step-toc">
+  <ul>
+    {{- range . }}
+    <li><a href="#{{ .id }}">{{ .title }}{{ with .minutes }} <span class="gb-minutes">~{{ . }}m</span>{{ end }}</a></li>
+    {{- end }}
+  </ul>
+</nav>
+{{- else }}
+{{ .TableOfContents }}
+{{- end }}
+{{ partial "docs/inject/toc-after" . }}

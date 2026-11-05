@@ -107,17 +107,13 @@ Paste into Terminal (⌘-space, type "Terminal", Enter):
 ```
 
 {{< expand "What each word does" >}}
-`/bin/bash -c "…"` — run the quoted text as a shell script, using the
-system's own bash. ·
-`$( … )` — "replace this with the output of the command inside": the
-script is downloaded first, then handed to bash. ·
-`curl` — the standard download-from-a-URL tool. ·
-`-f` — fail quietly on server errors instead of saving an error page.
-`-s` — silent (no progress bar). `-S` — but do show a message if it
-fails. `-L` — follow redirects. ·
-The URL — Homebrew's official install script, served from Homebrew's
-own GitHub repository (you can open it in a browser and read it
-first — that's not paranoia, that's the habit this guide is teaching).
+- `/bin/bash -c "…"` — run the quoted text as a shell script, using the system's own bash.
+- `$( … )` — "replace this with the output of the command inside": the script is downloaded first, then handed to bash.
+- `curl` — the standard download-from-a-URL tool.
+- `-f` — fail quietly on server errors instead of saving an error page.
+- `-s` / `-S` — silent (no progress bar), but do show a message if it fails.
+- `-L` — follow redirects.
+- the URL — Homebrew's official install script, from Homebrew's own GitHub repository. You can open it in a browser and read it first — that's not paranoia, that's the habit this guide is teaching.
 {{< /expand >}}
 
 It will ask for your Mac password (typing shows nothing — that's
@@ -138,13 +134,9 @@ echo '. "$(brew --prefix asdf)/libexec/asdf.sh"' >> ~/.zshrc
 ```
 
 {{< expand "What each word does" >}}
-`brew install asdf` — your new package manager's first job. ·
-`echo '…'` — print a line of text; here, the one-line instruction that
-loads asdf. ·
-`>> ~/.zshrc` — *append* it to your shell's startup file (`~` is your
-home folder; `.zshrc` runs every time a terminal opens). The `>` form
-would overwrite the file — `>>` adds to the end, which is why the
-guide uses it.
+- `brew install asdf` — your new package manager's first job.
+- `echo '…'` — print a line of text; here, the one-line instruction that loads asdf.
+- `>> ~/.zshrc` — *append* it to your shell's startup file (`~` is your home folder; `.zshrc` runs every time a terminal opens). The `>` form would overwrite the file — `>>` adds to the end, which is why the guide uses it.
 {{< /expand >}}
 
 Open a new terminal, then:
@@ -156,12 +148,9 @@ asdf global python 3.12.4
 ```
 
 {{< expand "What each word does" >}}
-`asdf plugin add python` — teach asdf about a language: a *plugin* is
-asdf's adapter for one tool family (here, Python). ·
-`asdf install python 3.12.4` — download and build that exact version;
-it lives alongside any others, not instead of them. ·
-`asdf global python 3.12.4` — make it the default everywhere
-(*global*), until a project folder says otherwise with a local pin.
+- `asdf plugin add python` — teach asdf about a language: a *plugin* is asdf's adapter for one tool family (here, Python).
+- `asdf install python 3.12.4` — download and build that exact version; it lives alongside any others, not instead of them.
+- `asdf global python 3.12.4` — make it the default everywhere (*global*), until a project folder says otherwise with a local pin.
 {{< /expand >}}
 
 (The install compiles; a few minutes of scrolling text is expected.)
@@ -206,14 +195,9 @@ curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 {{< expand "What each word does" >}}
-`curl -fsSL https://claude.ai/install.sh` — download Anthropic's
-official installer script (the flags are the same four as Homebrew's:
-fail-cleanly, silent-but-report-errors, follow-redirects). ·
-`|` — the *pipe*: feed the left side's output straight into the right
-side's input. ·
-`bash` — run what arrives. Same download-then-run shape as T1 — and
-the same habit applies: the URL is the vendor's own, and you can read
-the script in a browser first.
+- `curl -fsSL https://claude.ai/install.sh` — download Anthropic's official installer script (the flags are the same four as Homebrew's: fail-cleanly, silent-but-report-errors, follow-redirects).
+- `|` — the *pipe*: feed the left side's output straight into the right side's input.
+- `bash` — run what arrives. Same download-then-run shape as T1, same habit: the URL is the vendor's own, and you can read the script in a browser first.
 {{< /expand >}}
 
 Then open a new terminal and run `claude` once in any folder: it walks

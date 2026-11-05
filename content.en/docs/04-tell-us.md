@@ -27,13 +27,7 @@ the ones a guide learns the most from.
 Ask your collaborator:
 
 ```text
-Before we wrap: please write docs/adr/debrief-first-walk.md — a short
-record of this first walk, from both of us. Four sections: what we
-built and the decisions on the record; roughly how long each chapter
-actually took me; where the guide didn't match what we saw (step IDs
-if we noted them); and what you'd tell the next pair who walks this.
-Mark it clearly as ungraded feedback for the guide's authors. Then
-commit it.
+Before we wrap: please write docs/adr/debrief-first-walk.md — a short record of this first walk, from both of us. Four sections: what we built and the decisions on the record; roughly how long each chapter actually took me; where the guide didn't match what we saw (step IDs if we noted them); and what you'd tell the next pair who walks this. Mark it clearly as ungraded feedback for the guide's authors. Then commit it.
 ```
 
 Then get it to us, **either way is complete**:
